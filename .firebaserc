@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cosc310twitter": {
+      "hosting": {
+        "Twitter": [
+          "cosc310twitter"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cosc310twitter"
+  }
+}

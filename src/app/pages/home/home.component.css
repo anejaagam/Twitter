@@ -1,0 +1,265 @@
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css");
+* {
+	margin:0;
+	padding:0;
+	
+  box-sizing: border-box;
+}
+
+.container {
+	height:100vh;
+}
+
+/* Div 1 */
+.div-1 {
+	display:flex;
+}
+
+.div-1 > .sub-div-1 {
+	flex:1;
+	display:flex;
+	justify-content:center;
+}
+
+.sub-div-1 > .icon {
+	font-size:75px;
+	color:#1194FF;
+	margin:20px 0 30px 0;
+	margin-bottom: 5vh;
+}
+
+/* Div 2 */
+.div-2 {
+	display:flex;
+	margin-bottom: 5vh;
+}
+
+.div-2 > .sub-div-2 {
+	flex:4;
+	display:flex;
+	justify-content:center;
+}
+
+.div-2 > .sub-div-2 > h3 {
+  font-size:50px;
+	font-family:Century Gothic;
+  color:#000000;
+  justify-content:center
+ 
+  
+}
+
+/* Div 3 */
+.div-3 {
+	display:flex;
+	justify-content:center;
+}
+
+.div-3 > .sub-div-3 {
+	background:#ffffff;
+	margin:20px 0 0 0;
+  
+	width:55%;
+	height:50px;
+	position:relative;
+	border-bottom:1.5px solid rgb(0, 0, 0);
+}
+
+/*.sub-div-3 > label {
+	margin-left:7px;
+	font-size:14px;
+	font-family:Century Gothic;
+	color:#474747;
+}
+
+.sub-div-3 > input {
+	all:unset;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:30px;
+	padding:9px 0 0 7px;
+}*/
+
+/* div 4 */
+.div-4 {
+	display:flex;
+	justify-content:center;
+}
+
+.div-4 > .sub-div-4 {
+	background:#ffffff;
+	margin:20px 0 0 0;
+	width:55%;
+	height:50px;
+	position:relative;
+	border-bottom:1.5px solid rgb(0, 0, 0);
+}
+
+.sub-div-4 > label {
+	margin-left:7px;
+	font-size:14px;
+	font-family:Century Gothic;
+	color:#474747;
+}
+
+.sub-div-4 > input {
+	all:unset;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:30px;
+	padding:9px 0 0 7px;
+}
+
+/* Five*/
+.div-5 {
+	display:flex;
+}
+
+.div-5 > .sub-div-5 {
+	flex:1;
+	display:flex;
+	justify-content:center;
+	margin-top:20px;
+}
+
+.div-5 > .sub-div-5 > button {
+	
+	width:56%;
+	border-radius:29px;
+	text-align:center;
+	
+}
+
+/* 
+6
+*/
+.div-6 {
+	display:flex;
+  justify-content:center;
+  margin-top: 20px;
+  margin-bottom: 5vh;
+}
+
+.div-6 > .sub-div-6 {
+	flex:1;
+	display:flex;
+	justify-content:center;
+}
+
+.div-6 > .sub-div-6 > a {
+	text-decoration:none;
+	color:#000000;
+	font-size:24px;
+	margin-top:3px;
+  font-weight: 900;
+	
+}
+.div-6 > .sub-div-6 > button {
+	
+	
+	width:56%;
+	border-radius:29px;
+	text-align:center;
+	
+}
+
+
+/* 
+6
+*/
+.div-7 {
+	display:flex;
+  justify-content:center;
+  margin-top: 10px;
+}
+
+.div-7 > .sub-div-7 {
+	flex:1;
+	display:flex;
+	justify-content:center;
+}
+
+.div-7 > .sub-div-7 > a {
+	text-decoration:none;
+	color:#3681d6;
+	font-size:15px;
+	margin-top:3px;
+  font-family:'Century Gothic', Times, serif;
+}
+
+.sub-div-7 > .sub-div-7 > button {
+	
+	
+	width:50%;
+	border-radius:29px;
+	text-align:center;
+	
+}
+
+
+
+@media only screen and (max-width: 480px) and (min-width: 320px) {
+	.div-3 > .sub-div-3,.div-4 > .sub-div-4 {
+		width:85%;	
+	}
+	.div-5 > .sub-div-5 > button {
+		width:85.5%;
+	}
+
+}
+@media only screen and (max-width: 800px) and (min-width: 481px) {
+	.div-3 > .sub-div-3,.div-4 > .sub-div-4 {
+		width:70%;	
+	}
+	.div-5 > .sub-div-5 > button {
+		width:71%;
+	}
+
+}
+ .h3 {
+  width:445px;
+  height:75px;
+  border:4px ;
+  background:linear-gradient(to right, #1194FF, rgb(255, 255, 255));
+ }
+ .column {
+  background-image: url("../../../assets/TwitterBackgroundPage_2.png");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: inline-block;
+  position: relative;
+ }
+
+.forgot {
+  margin-top: 50ch;
+
+}
+
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 100vh; 
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#sign-up {
+
+  margin-top: 15vh;
+}
+button {
+	width: 50%;
+	border-radius: 29px !important;
+	text-align:center;
+}
+
