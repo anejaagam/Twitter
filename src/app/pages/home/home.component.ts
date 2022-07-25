@@ -8,6 +8,7 @@ import {
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserInfo } from 'src/app/user-info';
 import { getDoc, Firestore, doc } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public afs: AngularFirestore,
     public authService: AuthService,
-    public db: Firestore) {
+    public db: Firestore,
+    public st: AngularFireStorage ){
       
    }
    
@@ -89,13 +91,14 @@ SetUserProfileInfo(userName:string, userBday:string, name:string) {
   const userRef: AngularFirestoreDocument<any> = this.afs.doc(
     `userInfo/${userName}`
   );
+  const ref = this.st.ref('default/Default_pfp.jpeg');
   const userInfo: UserInfo = {
     name:name,
     username: userName,
     verified: false,
     bday: userBday,
-    photoURL: "gs://cosc310twitter.appspot.com/blank-profile-picture-973460_960_720.webp",
-    coverPhotoUrl: "gs://cosc310twitter.appspot.com/blank-profile-picture-973460_960_720.webp",
+    photoURL: 'default/Default_pfp.jpeg',
+    coverPhotoUrl: 'default/Default_pfp.jpeg',
     followers: 0,
     followed: 0,
     NumberOfTweets: 0,

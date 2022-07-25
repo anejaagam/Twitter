@@ -23,6 +23,7 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { CheckuserComponent } from './pages/checkuser/checkuser.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GetDownloadURLPipe } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     UserComponent,
     VerifyEmailComponent,
-    CheckuserComponent
+    CheckuserComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService, AuthService,

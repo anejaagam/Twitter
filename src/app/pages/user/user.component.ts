@@ -11,6 +11,10 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { AngularFireStorage, AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask, GetDownloadURLPipe } from '@angular/fire/compat/storage'
+import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+
                    
 
 
@@ -20,13 +24,27 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
-  constructor(public authservice : AuthService,
-    ) { 
-    
-  }
-  
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
+  pfp: Observable<string | null>;
+  constructor(public authservice : AuthService,
+    public storage :AngularFireStorage
+    ) { 
+      const ref = this.storage.ref(this.userInfo.photoURL);
+      this.pfp = ref.getDownloadURL();
+      console.log(this.userInfo.photoURL);
+
+     // const pfpref = ref(StorageRef, 'default/Default_pfp.jpeg')
+      //getDownloadURL(pfpref)
+  //.then((url) => {
+    // Insert url into an <img> tag to "download"
+    //this.pfpUrl = url;
+    //this.userInfo.profileURL = url;
+    
+
+  }
+  //ref:AngularFireStorageReference;
+  task:AngularFireUploadTask;
+  
   
   ngOnInit(): void {
   }
