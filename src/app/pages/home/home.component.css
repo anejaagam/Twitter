@@ -11,6 +11,29 @@
 	height:100vh;
 }
 
+.modal {
+	text-align: center;
+	border-radius: 29px;
+  }
+  .modal-content{
+	border-radius: 29px;
+  }
+  @media screen and (min-width: 768px) { 
+	.modal:before {
+	  display: inline-block;
+	  vertical-align: middle;
+	  content: " ";
+	  height: 100%;
+	}
+  }
+  
+  .modal-dialog {
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	border-radius: 29px;
+  }
+
 /* Div 1 */
 .div-1 {
 	display:flex;
