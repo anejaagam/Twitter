@@ -15,7 +15,7 @@
         <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faEnvelope" class="profileimage" ></fa-icon>Messages</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faBookmark" class="profileimage" ></fa-icon>Bookmarks</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
-        <li><button class="btn btn-primary tweet-btn"  id = "ComposeTweet">Tweet</button></li>
+        <li><button class="btn btn-primary tweet-btn"  id = "ComposeTweet" data-toggle ="modal" data-target="#modalComposetweet" >Tweet</button></li>
         <li style="margin-top: 24vh;"><button class="btn tweet-btn"  (click)="this.authservice.SignOut()">Logout</button></li>
         
         
@@ -67,17 +67,16 @@
                 <button class="btn">Likes</button>
             </div>
         </section>
-        <div class="mytweets">
-            <div class="tweet">
+        <div class="mytweets" *ngFor="let tweet of this.userTweets;let indexOfelement=index;">
+            <div class="tweet" >
             <div class="row container">
                 <div class="col-2" style="box-sizing: border-box;">
             <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
                 </div>
                 <div class="col-10">
                     <div style="box-sizing: border-box;">
-                <div class = "usename">{{userInfo.name}} @{{userInfo.username}} - Feb. 11</div>
-                <div class="tweetcontent">Always check the replies for clarification before you retweet a tweet,
-                    people deliberately mislead with their tweets.</div>
+                <div class = "usename">{{tweet.name}} @{{tweet.username}} - Feb. 11</div>
+                <div class="tweetcontent">{{tweet.Tweet}}</div>
                 </div>
             </div>
                 <div class="retweeticons">
@@ -88,6 +87,8 @@
                 </div>
             </div>
         </div>
+
+        
         </div>
     
     </div>
@@ -131,6 +132,9 @@
 
 </div>
 </div>
+
+
+
  <div class="modal fade" tabindex="-1"  id="modalEditprofile">
         <div class="modal-dialog" role="document">
           <div class="modal-content rounded-4 shadow">
@@ -161,6 +165,35 @@
                 
                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="EditUserClick(editName,newBio)" >Save Changes</button>
                 <small class="text-muted">By clicking Save Changes, your profile info will be updated.</small>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div class="modal fade" tabindex="-1"  id="modalComposetweet">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+              <!-- <h5 class="modal-title">Modal title</h5> -->
+              <h2 class="fw-bold mb-0">Compose Tweet</h2>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="refresh()"></button>
+            </div>
+      
+            <div class="modal-body p-5 pt-0">
+              <form class="ComposeTweet">
+                
+                <div class="form-floating mb-3">
+                    <input type="text" #newTweet class="form-control floating-input floating-input1 rounded-3" id="newTweet"  required>
+                    <label for="floatingInput"> Tweet away...</label>
+                  </div>
+            
+                
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="tweet.PostTweet(newTweet)" >Post Tweet</button>
+                <small class="text-muted">By clicking Post tweet, your tweet is sent to the world!</small>
                 
               </form>
             </div>

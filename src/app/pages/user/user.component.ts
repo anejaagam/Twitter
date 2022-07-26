@@ -16,6 +16,7 @@ import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { doc, updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 
                    
 
@@ -29,14 +30,17 @@ export class UserComponent implements OnInit {
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
   banner: Observable<string | null>;
+  userTweets: any;
 
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
-    public afs : AngularFirestore
+    public afs : AngularFirestore,
+    public tweet : TweetService
     ) { 
       const ref = this.storage.ref(this.userInfo.photoURL);
       this.pfp = ref.getDownloadURL();
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
+      this.userTweets = tweet.UserTweets(this.userInfo.username);
       
      // const pfpref = ref(StorageRef, 'default/Default_pfp.jpeg')
       //getDownloadURL(pfpref)
@@ -49,6 +53,12 @@ export class UserComponent implements OnInit {
   }
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;
+
+
+  SendTweetClick(newTweet: HTMLInputElement,){
+    
+  }
+
   
   uploadPfp(event:any){
     const id = `${this.userInfo.username}/pfp`;
