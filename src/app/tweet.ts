@@ -1,5 +1,6 @@
 
 export interface Tweet {
+    id?: any;
     username: string;
     Tweet: string;
     pfpURL: string;
@@ -8,4 +9,5 @@ export interface Tweet {
     retweet: number;
     commentsNumber: number;
     comments: any;
+    time?: any;
 }

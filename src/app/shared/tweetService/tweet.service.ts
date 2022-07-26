@@ -9,7 +9,7 @@ import { Tweet } from 'src/app/tweet';
 export class TweetService {
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
-  private tweetRef: AngularFirestoreCollection<Tweet>;
+  private tweetRef: AngularFirestoreDocument<any>;
   tweet: Observable<Tweet[]>;
   model:Tweet;
   constructor(public afs: AngularFirestore) { 
@@ -17,8 +17,8 @@ export class TweetService {
   }
 PostTweet(tweet: HTMLInputElement){
   let tweetString = tweet.value;
-  this.tweetRef = this.afs.collection<Tweet>('Tweets');
   this.model = {
+    id : this.afs.createId(),
     username: this.userInfo.username,
     Tweet: tweetString,
     pfpURL: this.userInfo.photoURL,
@@ -26,16 +26,20 @@ PostTweet(tweet: HTMLInputElement){
     like: 0,
     retweet: 0,
     commentsNumber: 0,
-    comments:[]
+    comments:[],
+    time: new Date
   }
-  this.tweetRef.add(this.model).then(()=>{
+  this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
+  this.tweetRef.set(this.model,{
+    merge: true,
+  }).then(()=>{
     window.location.reload();
-  })
+  });
 }
 
 UserTweets(username: string){
   const userTweets: unknown[] = [];
-  this.afs.collection("Tweets", (ref) => ref.where("username", "==", username))
+  this.afs.collection("Tweets", (ref) => ref.where("username", "==", username).orderBy("time", 'asc'))
   .snapshotChanges()
   .subscribe((data) => {
     
@@ -46,7 +50,15 @@ UserTweets(username: string){
     });
     
   });
+  console.log(userTweets)
   return userTweets;
+}
+
+DeleteTweet(id: any){
+  let tweetId = id;
+  this.tweetRef = this.afs.doc(`Tweets/${tweetId}`);
+  this.tweetRef.delete().then(()=>{window.location.reload();})
+
 }
 
 

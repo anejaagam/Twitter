@@ -73,9 +73,9 @@
                 <div class="col-2" style="box-sizing: border-box;">
             <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
                 </div>
-                <div class="col-10">
+                <div class="col" >
                     <div style="box-sizing: border-box;">
-                <div class = "usename">{{tweet.name}} @{{tweet.username}} - Feb. 11</div>
+                <div class = "usename">{{tweet.name}} @{{tweet.username}} - {{tweet.time | date}}</div>
                 <div class="tweetcontent">{{tweet.Tweet}}</div>
                 </div>
             </div>
@@ -84,6 +84,7 @@
                     <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
                     <button class="btn" style="width: 100%;"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon></button>
                     <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
+                    <button class="btn" style="width: 100%;" (click)="Tweet.DeleteTweet(tweet.id)"><fa-icon [icon]="faTrash"  aria-hidden="true"></fa-icon></button>
                 </div>
             </div>
         </div>
@@ -192,7 +193,7 @@
                   </div>
             
                 
-                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="tweet.PostTweet(newTweet)" >Post Tweet</button>
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="Tweet.PostTweet(newTweet)" >Post Tweet</button>
                 <small class="text-muted">By clicking Post tweet, your tweet is sent to the world!</small>
                 
               </form>

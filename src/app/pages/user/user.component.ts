@@ -11,6 +11,7 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AngularFireStorage, AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask, GetDownloadURLPipe } from '@angular/fire/compat/storage'
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
@@ -35,12 +36,13 @@ export class UserComponent implements OnInit {
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
     public afs : AngularFirestore,
-    public tweet : TweetService
+    public Tweet : TweetService
     ) { 
       const ref = this.storage.ref(this.userInfo.photoURL);
       this.pfp = ref.getDownloadURL();
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
-      this.userTweets = tweet.UserTweets(this.userInfo.username);
+      this.userTweets = Tweet.UserTweets(this.userInfo.username);
+      
       
      // const pfpref = ref(StorageRef, 'default/Default_pfp.jpeg')
       //getDownloadURL(pfpref)
@@ -79,7 +81,9 @@ export class UserComponent implements OnInit {
       `userInfo/${this.userInfo.username}`
     );
     localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-    return userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: this.userInfo.photoURL, coverPhotoUrl: this.userInfo.coverPhotoUrl});
+    userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: this.userInfo.photoURL, coverPhotoUrl: this.userInfo.coverPhotoUrl}).then(()=>{
+      window.location.reload();
+    });
     
 
 
@@ -100,5 +104,6 @@ export class UserComponent implements OnInit {
   faHeart = faHeart;
   faUpload = faUpload;
   faRetweet = faRetweet;
+  faTrash = faTrash;
   userProfileURL = this.userInfo.userProfileURL;
 }
