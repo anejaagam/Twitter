@@ -49,6 +49,12 @@ export class UserComponent implements OnInit {
   }
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;
+
+
+  SendTweetClick(newTweet: HTMLInputElement,){
+    
+  }
+
   
   uploadPfp(event:any){
     const id = `${this.userInfo.username}/pfp`;
