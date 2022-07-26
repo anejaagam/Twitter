@@ -11,12 +11,17 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AngularFireStorage, AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask, GetDownloadURLPipe } from '@angular/fire/compat/storage'
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { doc, updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+
 import { Router } from '@angular/router';
+
+import { TweetService } from 'src/app/shared/tweetService/tweet.service';
+
 
                    
 
@@ -30,15 +35,22 @@ export class UserComponent implements OnInit {
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
   banner: Observable<string | null>;
+  userTweets: any;
 
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
     public afs : AngularFirestore,
-    public router: Router
+
+    public router: Router,
+
+    public Tweet : TweetService
+
     ) { 
       const ref = this.storage.ref(this.userInfo.photoURL);
       this.pfp = ref.getDownloadURL();
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
+      this.userTweets = Tweet.UserTweets(this.userInfo.username);
+      
       
      // const pfpref = ref(StorageRef, 'default/Default_pfp.jpeg')
       //getDownloadURL(pfpref)
@@ -51,6 +63,12 @@ export class UserComponent implements OnInit {
   }
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;
+
+
+  SendTweetClick(newTweet: HTMLInputElement,){
+    
+  }
+
   
   uploadPfp(event:any){
     const id = `${this.userInfo.username}/pfp`;
@@ -71,7 +89,9 @@ export class UserComponent implements OnInit {
       `userInfo/${this.userInfo.username}`
     );
     localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-    return userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: this.userInfo.photoURL, coverPhotoUrl: this.userInfo.coverPhotoUrl});
+    userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: this.userInfo.photoURL, coverPhotoUrl: this.userInfo.coverPhotoUrl}).then(()=>{
+      window.location.reload();
+    });
     
 
 
@@ -92,5 +112,6 @@ export class UserComponent implements OnInit {
   faHeart = faHeart;
   faUpload = faUpload;
   faRetweet = faRetweet;
+  faTrash = faTrash;
   userProfileURL = this.userInfo.userProfileURL;
 }
