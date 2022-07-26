@@ -1,4 +1,3 @@
-import { Observable } from "rxjs";
 
 export interface UserInfo {
     name: string;

@@ -67,17 +67,16 @@
                 <button class="btn">Likes</button>
             </div>
         </section>
-        <div class="mytweets">
-            <div class="tweet">
+        <div class="mytweets" *ngFor="let tweet of this.userTweets;let indexOfelement=index;">
+            <div class="tweet" >
             <div class="row container">
                 <div class="col-2" style="box-sizing: border-box;">
             <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
                 </div>
                 <div class="col-10">
                     <div style="box-sizing: border-box;">
-                <div class = "usename">{{userInfo.name}} @{{userInfo.username}} - Feb. 11</div>
-                <div class="tweetcontent">Always check the replies for clarification before you retweet a tweet,
-                    people deliberately mislead with their tweets.</div>
+                <div class = "usename">{{tweet.name}} @{{tweet.username}} - Feb. 11</div>
+                <div class="tweetcontent">{{tweet.Tweet}}</div>
                 </div>
             </div>
                 <div class="retweeticons">
@@ -88,6 +87,8 @@
                 </div>
             </div>
         </div>
+
+        
         </div>
     
     </div>
@@ -132,7 +133,7 @@
 </div>
 </div>
 
-// EDIT PROFILE MODAL OVERLAY:
+
 
  <div class="modal fade" tabindex="-1"  id="modalEditprofile">
         <div class="modal-dialog" role="document">
@@ -172,8 +173,7 @@
       </div>
 
 
-      // COMPOSE TWEET MODAL OVERLAY:
-
+      
       <div class="modal fade" tabindex="-1"  id="modalComposetweet">
         <div class="modal-dialog" role="document">
           <div class="modal-content rounded-4 shadow">
@@ -192,7 +192,7 @@
                   </div>
             
                 
-                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="SendTweetClick(newTweet)" >Post Tweet</button>
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="tweet.PostTweet(newTweet)" >Post Tweet</button>
                 <small class="text-muted">By clicking Post tweet, your tweet is sent to the world!</small>
                 
               </form>
