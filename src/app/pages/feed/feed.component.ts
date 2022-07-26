@@ -20,17 +20,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  faBell = faBell;
-  faTwitter = faTwitter;
-  faHome = faHome;
-  faSearch = faSearch;
-  faEnvelope = faEnvelope;
-  faBookmark = faBookmark;
-  faUser = faUser;
-  faComment = faComment;
-  faHeart = faHeart;
-  faUpload = faUpload;
-  faRetweet = faRetweet;
   
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
@@ -44,5 +33,16 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  faBell = faBell;
+  faTwitter = faTwitter;
+  faHome = faHome;
+  faSearch = faSearch;
+  faEnvelope = faEnvelope;
+  faBookmark = faBookmark;
+  faUser = faUser;
+  faComment = faComment;
+  faHeart = faHeart;
+  faUpload = faUpload;
+  faRetweet = faRetweet;
+  
 }
