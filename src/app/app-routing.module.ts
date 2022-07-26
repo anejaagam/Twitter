@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckuserComponent } from './pages/checkuser/checkuser.component';
+import { FeedComponent } from './pages/feed/feed.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserComponent } from './pages/user/user.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
@@ -13,7 +14,8 @@ const routes: Routes = [
 },
   {path:'home',component:HomeComponent},
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  { path: 'user', component: UserComponent}
+  { path: 'user', component: UserComponent },
+  { path: 'feed', component: FeedComponent}
 ];
 
 @NgModule({
