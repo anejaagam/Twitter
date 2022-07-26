@@ -36,9 +36,9 @@
         </section>
         <section class="twitterprofile">
             <div class="headerprofileimage">
-                <img src="../../../assets/TwitterBackgroundPage.png" alt="header" id="headerimage">
+                <img [src]="banner | async" alt="header" id="headerimage">
                 <img [src]="pfp | async" alt="profile pic" id="profilepic">
-                <div class="editprofile"><button class="btn"> Edit Profile</button></div>
+                <div class="editprofile"> <button type = "button" class="btn" data-toggle ="modal" data-target="#modalEditprofile"> Edit Profile</button></div>
             </div>
             <div class="bio">
                 <div class="handle">
@@ -71,7 +71,7 @@
             <div class="tweet">
             <div class="row container">
                 <div class="col-2" style="box-sizing: border-box;">
-            <img style="box-sizing: border-box;" src="../../../assets/TwitterBackgroundPage.png" alt="avi" class="avi">
+            <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
                 </div>
                 <div class="col-10">
                     <div style="box-sizing: border-box;">
@@ -131,3 +131,39 @@
 
 </div>
 </div>
+ <div class="modal fade" tabindex="-1"  id="modalEditprofile">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+              <!-- <h5 class="modal-title">Modal title</h5> -->
+              <h2 class="fw-bold mb-0">Edit Profile</h2>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="refresh()"></button>
+            </div>
+      
+            <div class="modal-body p-5 pt-0">
+              <form class="EditUser">
+                <div class="form-floating mb-3">
+                    <input type="text" #editName class="form-control floating-input floating-input1 rounded-3"  [value]="userInfo.name">
+                    <label for="floatingInput"> Name</label>
+                  </div>
+                <div class="form-floating mb-3">
+                  <input type="text" #newBio class="form-control floating-input floating-input2 rounded-3 "[value]="userInfo.bio">
+                  <label for="floatingInput">User Bio</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="file" #newDP class="form-control floating-input floating-input3 rounded-3" accept=".png, .jpeg, .jpg" (change)="uploadPfp($event)">
+                    <label for="floatingBirthday">Profile Picture</label>
+                  </div>
+                <div class="form-floating mb-3">
+                    <input type="file" #newBanner class="form-control floating-input floating-input4 rounded-3 " accept=".png, .jpeg, .jpg" (change)="uploadbanner($event)">
+                    <label for="floatingUsername">Banner Image</label>
+                  </div>
+                
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="EditUserClick(editName,newBio)" >Save Changes</button>
+                <small class="text-muted">By clicking Save Changes, your profile info will be updated.</small>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>

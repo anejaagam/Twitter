@@ -58,7 +58,28 @@ li {
   
 }
 
+.modal {
+  text-align: center;
+  border-radius: 29px;
+}
+.modal-content{
+  border-radius: 29px;
+}
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
 
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 29px;
+}
 
 #icons {
   margin-right: 10px;
@@ -178,6 +199,7 @@ figure:hover {
   top: 120px;
   left: 20px;
   border: 2px solid rgb(21, 32, 43);
+  object-fit: cover;
 }
 
 .editprofile {
@@ -244,7 +266,8 @@ margin-top: 250px;
   border-radius: 50%;
   margin-left: 20%;
   height: 100%;
-  font-weight: bold
+  font-weight: bold;
+  object-fit: cover;
 }
 
 .mytweets {
