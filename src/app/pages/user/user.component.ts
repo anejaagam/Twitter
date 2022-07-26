@@ -16,6 +16,7 @@ import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { doc, updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 
                    
 
@@ -32,7 +33,8 @@ export class UserComponent implements OnInit {
 
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
-    public afs : AngularFirestore
+    public afs : AngularFirestore,
+    public router: Router
     ) { 
       const ref = this.storage.ref(this.userInfo.photoURL);
       this.pfp = ref.getDownloadURL();

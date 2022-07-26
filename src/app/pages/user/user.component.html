@@ -9,12 +9,12 @@
     <div class="container">
     <ul>
         <li style="padding-bottom: 10px;padding-top: 10px;"><fa-icon [icon]="faTwitter" class="fa-xl"id="twittericon"></fa-icon></li>
-        <li><button type="menu" class = "navbar-btn "><a href="#"><fa-icon [icon]="faHome" class="profileimage" ></fa-icon>Home</a></button></li>
+        <li><button type="menu" class = "navbar-btn " ><a routerLink="/feed"><fa-icon [icon]="faHome" class="profileimage" ></fa-icon>Home</a></button></li>
         <li><button type = "menu" class = "navbar-btn "><a href="#"><fa-icon [icon]="faSearch" class="profileimage" ></fa-icon>Explore</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faBell" class="profileimage" ></fa-icon>Notification</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faEnvelope" class="profileimage" ></fa-icon>Messages</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faBookmark" class="profileimage" ></fa-icon>Bookmarks</a></button></li>
-        <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
+        <li><button type = "menu" class = "navbar-btn active"><a href="#"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
         <li><button class="btn btn-primary tweet-btn"  id = "ComposeTweet">Tweet</button></li>
         <li style="margin-top: 24vh;"><button class="btn tweet-btn"  (click)="this.authservice.SignOut()">Logout</button></li>
         

@@ -1,0 +1,389 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+/*@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css");*/
+@import url("https://kit.fontawesome.com/2ae3d21054.js");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: 'Century Gothic', 'Franklin Gothic Medium', sans-serif;
+  scroll-behavior: smooth;
+
+}
+
+
+
+
+#fixedarrow {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  border: 1px solid rgb(155, 157, 160);
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+a,
+li {
+  text-decoration: none !important;
+  list-style: none;
+  color: rgb(0, 0, 0);
+  line-height: 24px;
+  padding-bottom: 20px;
+}
+
+.navbar-btn:hover {
+  color: 	white !important;
+  background-color: 	#e4eaed;
+  opacity: 0.9;
+  cursor: pointer;
+  
+}
+
+
+#twittericon {
+  color: 	#1DA1F2;
+  
+  padding-bottom:0px !important;
+  padding-left:12px;
+  margin-bottom: 0px !important;
+  
+}
+
+.modal {
+  text-align: center;
+  border-radius: 29px;
+}
+.modal-content{
+  border-radius: 29px;
+}
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 29px;
+}
+
+#icons {
+  margin-right: 10px;
+  font-size: 30px;
+
+}
+
+.leftverticalmenu {
+  height: 100px;
+  width: 300px;
+  text-align: justify;
+  line-height: 24px;
+  font-size: 20px;
+  
+
+}
+
+.navbar-btn{
+  padding: 12px;
+  border-radius: 29px;
+  border: 0px solid rgb(43, 43, 223);
+  background-color: white;
+}
+
+ul {
+  margin-left: 2%;
+  width: inherit;
+  position: fixed;
+  text-align: justify;
+  line-height: 24px;;
+  font-size: 20px;
+  box-sizing: border-box;
+}
+
+.profileimage {
+  border-radius: 50%;
+  border: 0px solid rgb(255, 255, 255);
+  width: 25px;
+  margin-right: 10px;
+  color: #1DA1F2;
+}
+
+.tweet-btn {
+  
+  text-align: center;
+  font-size: 20px;
+  
+
+  cursor: pointer;
+  width: 200px;
+  margin: auto;
+  font-size: 20px;
+  border-radius: 29px !important;
+  padding: 10px !important;
+
+  
+  
+}
+
+figure:hover {
+  opacity: 0.9;
+}
+
+/* MIDDLE AND RIGHT CONTAINERS */
+
+.flexcontainer {
+
+  left: 300px;
+}
+
+.middlecontainer {
+ 
+  position: relative;
+ 
+  border-right: 1px solid rgb(155, 157, 160);
+  border-left: 1px solid rgb(155, 157, 160);
+  height: 100%;
+
+}
+
+.headsec {
+  display: flex;
+  margin-top: 5px;
+
+}
+
+#fa-arrow-left {
+  color: blue;
+  filter: brightness(70%);
+  font-size: 20px;
+  margin: 10px 20px 0 20px;
+  cursor: pointer;
+}
+
+#header-tweetcnt {
+  margin-bottom: 5px;
+}
+
+.headerprofileimage {
+ 
+  position: relative;
+
+
+}
+
+#headerimage {
+ width: 100%;
+  
+  height:200px;
+}
+
+#profilepic {
+  border-radius: 50%;
+  width: 120px;
+  height:120px;
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  border: 2px solid rgb(21, 32, 43);
+  object-fit: cover;
+}
+
+.editprofile {
+  margin-top: 50px;
+  float: right;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 10px;
+margin-top: 250px;
+}
+
+.bio {
+  margin-top: 55px;
+  margin-left: 20px;
+  line-height: 40px;
+  font-size: 15px;
+}
+
+.handle {
+  line-height: 19px;
+  margin-bottom: 10px;
+}
+
+.followers {
+  margin-right: 15px;
+}
+
+.nawa {
+  display: flex;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  font-weight: bold;
+  
+
+}
+
+.heading button {
+  display: block;
+  cursor: pointer;
+  border-radius: 0;
+  width: 100%;
+  padding-top:10px;
+  padding-bottom:10px;
+  border: 0;
+}
+
+.active-rn{
+  border-bottom: #1DA1F2 4px solid !important;
+}
+
+.heading button:hover {
+  background-color: #e4eaed;
+}
+
+.avi {
+  width: 75%;
+  border-radius: 50%;
+  margin-left: 20%;
+  height: 100%;
+  font-weight: bold;
+  object-fit: cover;
+}
+
+.mytweets {
+  box-sizing: border-box;
+ display:flex;
+ 
+  margin-bottom: 80px;
+  border: 3px;
+}
+.tweet{
+  border:  1px grey solid;
+  padding-top: 3%;
+
+}
+.tweetcontent {
+  box-sizing: border-box;
+  margin-top: 5px;
+  
+  position: relative;
+  width: 95%;
+}
+
+
+.retweeticons {
+  
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+
+
+
+
+
+}
+
+
+/* RIGHT VERTICAL CONTAINER */
+
+.flexcontainer {
+  display: flex;
+}
+
+.searchbar {
+  display: inline-flex;
+  margin: 10px 0 0 25px;
+  border: 1px solid rgb(155, 157, 160);
+  padding: 13px;
+  border-radius: 20px;
+  width: 300px;
+}
+
+#searchbox {
+  border: none;
+  background-color: transparent;
+  color: rgb(155, 157, 160);
+}
+
+.searchicon {
+  color: royalblue;
+  margin-right: 15px;
+}
+
+.twittermedia {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgb(155, 157, 160);
+  border-radius: 20px;
+  margin: 10px 0 0 25px;
+  width: 300px;
+}
+
+.twittermedia img {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+}
+
+.trends {
+  margin: 30px 0 0 25px;
+  width: 300px;
+  border: 1px solid rgb(155, 157, 160);
+  border-radius: 15px;
+  padding: 10px 0;
+}
+
+#fa-cog {
+  color: royalblue;
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.headertrends {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(155, 157, 160);
+  padding: 10px;
+text-align: center;
+}
+
+.trending {
+  filter: brightness(50%)
+}
+
+.trenditem {
+  border-bottom: 1px solid rgb(155, 157, 160);
+  padding: 15px;
+  line-height: 22px;
+}
+
+.hashtag {
+  font-weight: bolder;
+
+}
+
+/* RIGHT VERTICAL CONTAINER */
+

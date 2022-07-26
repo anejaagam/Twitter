@@ -24,6 +24,7 @@ import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { CheckuserComponent } from './pages/checkuser/checkuser.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GetDownloadURLPipe } from '@angular/fire/compat/storage';
+import { FeedComponent } from './pages/feed/feed.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { GetDownloadURLPipe } from '@angular/fire/compat/storage';
     UserComponent,
     VerifyEmailComponent,
     CheckuserComponent,
+    FeedComponent,
     
   ],
   imports: [
