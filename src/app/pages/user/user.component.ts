@@ -102,6 +102,7 @@ export class UserComponent implements OnInit {
   }
   ngOnInit(): void {
   }
+  
   faBell = faBell;
   faTwitter = faTwitter;
   faHome = faHome;
