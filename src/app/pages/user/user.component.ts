@@ -37,6 +37,7 @@ export class UserComponent implements OnInit {
   banner: Observable<string | null>;
   userTweets: any;
 
+
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
     public afs : AngularFirestore,
