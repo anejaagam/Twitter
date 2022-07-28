@@ -10,4 +10,6 @@ export interface Tweet {
     commentsNumber: number;
     comments: any;
     time?: any;
+    timeStamp: any;
+    likedBy: any;
 }
