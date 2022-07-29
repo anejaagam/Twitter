@@ -26,46 +26,17 @@
 
 <div class="col-6 middlecontainer">
 
+    <h3 id="header-username">Bookmarks</h3>
+    <p id="header-tweetcnt">@{{userInfo.username}}</p>
     
-    <div class="mytweets" *ngFor="let tweet of this.feedTweets;let indexOfelement=index;">
-        <div class="tweet" >
-        <div class="row container">
-            <div class="col-2" style="box-sizing: border-box;">
-        <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
-            </div>
-            <div class="col" >
-                <div style="box-sizing: border-box;">
-            <div class = "usename">{{tweet.name}} @{{tweet.username}} - {{tweet.timeStamp}}</div>
-            <div class="tweetcontent">{{tweet.Tweet}}</div>
-            </div>
-        </div>
-            <div class="retweeticons">
-                <button class="btn" style="width: 100%;"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
-                <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
-                <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
-                <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
-            </div>
-        </div>
-    </div>
-
     
-    </div>
-    
-    </div>
+</div>
 
 
     <!-- RIGHT CONTAINER -->
 
     <div class="col-3">
-        <section class="searchbar">
-            <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
-            <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
-        </section>
-
-        <section class="twittermedia">
-            <div><img src="../../../assets/TwitterBackgroundPage.png" alt="media"></div>
-            
-        </section>
+      
 
         <section class="trends">
             <div class="headertrends">

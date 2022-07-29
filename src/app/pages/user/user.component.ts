@@ -41,26 +41,12 @@ export class UserComponent implements OnInit {
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
     public afs : AngularFirestore,
-
     public router: Router,
-
-    public Tweet : TweetService
-
-    ) { 
+    public Tweet : TweetService) { 
       const ref = this.storage.ref(this.userInfo.photoURL);
       this.pfp = ref.getDownloadURL();
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
       this.userTweets = Tweet.UserTweets(this.userInfo.username);
-      
-      
-     // const pfpref = ref(StorageRef, 'default/Default_pfp.jpeg')
-      //getDownloadURL(pfpref)
-  //.then((url) => {
-    // Insert url into an <img> tag to "download"
-    //this.pfpUrl = url;
-    //this.userInfo.profileURL = url;
-    
-
   }
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;

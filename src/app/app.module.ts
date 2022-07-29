@@ -25,6 +25,10 @@ import { CheckuserComponent } from './pages/checkuser/checkuser.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GetDownloadURLPipe } from '@angular/fire/compat/storage';
 import { FeedComponent } from './pages/feed/feed.component';
+import { ExploreComponent } from './pages/explore/explore.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
+import { MessagesComponent } from './pages/messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,10 @@ import { FeedComponent } from './pages/feed/feed.component';
     VerifyEmailComponent,
     CheckuserComponent,
     FeedComponent,
+    ExploreComponent,
+    NotificationsComponent,
+    BookmarksComponent,
+    MessagesComponent,
     
   ],
   imports: [

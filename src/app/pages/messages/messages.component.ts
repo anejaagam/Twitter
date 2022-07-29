@@ -7,21 +7,17 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
-import { faRetweet } from '@fortawesome/free-solid-svg-icons';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.css']
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.css']
 })
-export class FeedComponent implements OnInit {
-  
+export class MessagesComponent implements OnInit {
+
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
@@ -44,9 +40,5 @@ export class FeedComponent implements OnInit {
   faEnvelope = faEnvelope;
   faBookmark = faBookmark;
   faUser = faUser;
-  faComment = faComment;
-  faHeart = faHeart;
-  faUpload = faUpload;
-  faRetweet = faRetweet;
   
 }

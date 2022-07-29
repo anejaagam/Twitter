@@ -16,12 +16,11 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.css']
+  selector: 'app-explore',
+  templateUrl: './explore.component.html',
+  styleUrls: ['./explore.component.css']
 })
-export class FeedComponent implements OnInit {
-  
+export class ExploreComponent implements OnInit {
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
@@ -48,5 +47,4 @@ export class FeedComponent implements OnInit {
   faHeart = faHeart;
   faUpload = faUpload;
   faRetweet = faRetweet;
-  
 }
