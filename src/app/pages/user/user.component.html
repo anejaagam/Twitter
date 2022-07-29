@@ -10,19 +10,13 @@
     <ul>
         <li style="padding-bottom: 10px;padding-top: 10px;"><fa-icon [icon]="faTwitter" class="fa-xl"id="twittericon"></fa-icon></li>
         <li><button type="menu" class = "navbar-btn " ><a routerLink="/feed"><fa-icon [icon]="faHome" class="profileimage" ></fa-icon>Home</a></button></li>
-        <li><button type = "menu" class = "navbar-btn "><a href="#"><fa-icon [icon]="faSearch" class="profileimage" ></fa-icon>Explore</a></button></li>
-        <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faBell" class="profileimage" ></fa-icon>Notification</a></button></li>
-        <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faEnvelope" class="profileimage" ></fa-icon>Messages</a></button></li>
-        <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faBookmark" class="profileimage" ></fa-icon>Bookmarks</a></button></li>
-
-       
-
-        <li><button type = "menu" class = "navbar-btn"><a href="#"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
+        <li><button type = "menu" class = "navbar-btn "><a routerLink="/explore"><fa-icon [icon]="faSearch" class="profileimage" ></fa-icon>Explore</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/notifications"><fa-icon [icon]="faBell" class="profileimage" ></fa-icon>Notification</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/messages"><fa-icon [icon]="faEnvelope" class="profileimage" ></fa-icon>Messages</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/bookmarks"><fa-icon [icon]="faBookmark" class="profileimage" ></fa-icon>Bookmarks</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/user"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
         <li><button class="btn btn-primary tweet-btn"  id = "ComposeTweet" data-toggle ="modal" data-target="#modalComposetweet" >Tweet</button></li>
-
-        <li style="margin-top: 24vh;"><button class="btn tweet-btn"  (click)="this.authservice.SignOut()">Logout</button></li>
-        
-        
+        <li style="margin-top: 20vh;"><button class="btn tweet-btn"  (click)="this.authservice.SignOut()">Logout</button></li>
     </ul>
 </div>
 </div>
@@ -32,7 +26,7 @@
 <div class="col-6 middlecontainer">
     
         <section class="headsec">
-            <i class="fa fa-arrow-left" id="fa-arrow-left"></i>
+            <a routerLink="/feed"><i class="fa fa-arrow-left" id="fa-arrow-left"></i></a>
             <div>
                 <h5 id="header-username">{{userInfo.name}}</h5>
                     <p id="header-tweetcnt">{{userInfo.NumberOfTweets}} Tweets</p>
@@ -102,15 +96,7 @@
     <!-- RIGHT CONTAINER -->
 
     <div class="col-3">
-        <section class="searchbar">
-            <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
-            <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
-        </section>
-
-        <section class="twittermedia">
-            <div><img src="../../../assets/TwitterBackgroundPage.png" alt="media"></div>
-            
-        </section>
+        
 
         <section class="trends">
             <div class="headertrends">

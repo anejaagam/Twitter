@@ -1,0 +1,41 @@
+
+<div id="totop"></div>
+<a href="#totop" class="fa fa-arrow-up" id="fixedarrow"></a>
+<!-- <a href="#totop"><i class="fa fa-arrow-up" aria-hidden="true" id="fixedarrow"></i></a> -->
+<!-- LEFT VERTICAL FIXED MENU -->
+<div class="container">
+<div class="row">
+<div class="col-3">
+    <div class="container">
+    <ul>
+        <li style="padding-bottom: 10px;padding-top: 10px;"><fa-icon [icon]="faTwitter" class="fa-xl"id="twittericon"></fa-icon></li>
+        <li><button type="menu" class = "navbar-btn " ><a routerLink="/feed"><fa-icon [icon]="faHome" class="profileimage" ></fa-icon>Home</a></button></li>
+        <li><button type = "menu" class = "navbar-btn "><a routerLink="/explore"><fa-icon [icon]="faSearch" class="profileimage" ></fa-icon>Explore</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/notifications"><fa-icon [icon]="faBell" class="profileimage" ></fa-icon>Notification</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/messages"><fa-icon [icon]="faEnvelope" class="profileimage" ></fa-icon>Messages</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/bookmarks"><fa-icon [icon]="faBookmark" class="profileimage" ></fa-icon>Bookmarks</a></button></li>
+        <li><button type = "menu" class = "navbar-btn"><a routerLink="/user"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
+        <li><button class="btn btn-primary tweet-btn"  id = "ComposeTweet" data-toggle ="modal" data-target="#modalComposetweet" >Tweet</button></li>
+        <li style="margin-top: 20vh;"><button class="btn tweet-btn"  (click)="this.authservice.SignOut()">Logout</button></li>
+        
+    </ul>
+</div>
+</div>
+
+<!-- END OF LEFT FIXED MENU -->
+
+<div class="col-9 middlecontainer">
+
+    <h3 id="header-username">Messages</h3>
+    
+    
+    
+</div>
+
+
+    <!-- RIGHT CONTAINER -->
+
+
+</div>
+</div>
+ 
