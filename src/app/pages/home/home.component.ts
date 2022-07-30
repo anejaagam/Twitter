@@ -75,7 +75,9 @@ GetUserProfileInfo(userName:string, email: string, password:string) {
           followers: userData.followers,
           followed: userData.followed,
           NumberOfTweets: userData.NumberOfTweets,
-          bio:userData.bio
+          bio:userData.bio,
+          following:userData.following,
+          followedBy:userData.followedBy
     
         };
         
@@ -97,12 +99,14 @@ SetUserProfileInfo(userName:string, userBday:string, name:string) {
     username: userName,
     verified: false,
     bday: userBday,
-    photoURL: 'default/Default_pfp.jpeg',
-    coverPhotoUrl: 'default/Default_pfp.jpeg',
+    photoURL:"default/Default_pfp.jpeg",
+    coverPhotoUrl:"default/Default_pfp.jpeg",
     followers: 0,
     followed: 0,
     NumberOfTweets: 0,
-    bio: "Hi I just joined Twitter!"
+    bio: "Hi I just joined Twitter!",
+    followedBy: [],
+    following: []
   };
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
   return userRef.set(userInfo, {

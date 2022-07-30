@@ -13,11 +13,10 @@
         <li><button type = "menu" class = "navbar-btn "><a routerLink="/explore"><fa-icon [icon]="faSearch" class="profileimage" ></fa-icon>Explore</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a routerLink="/notifications"><fa-icon [icon]="faBell" class="profileimage" ></fa-icon>Notification</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a routerLink="/messages"><fa-icon [icon]="faEnvelope" class="profileimage" ></fa-icon>Messages</a></button></li>
-        <li><button type = "menu" class = "navbar-btn"><a routerLink="/bookmarks"><fa-icon [icon]="faBookmark" class="profileimage" ></fa-icon>Bookmarks</a></button></li>
         <li><button type = "menu" class = "navbar-btn"><a routerLink="/user"><fa-icon [icon]="faUser" class="profileimage" ></fa-icon>Profile</a></button></li>
         <li><button class="btn btn-primary tweet-btn"  id = "ComposeTweet" data-toggle ="modal" data-target="#modalComposetweet" >Tweet</button></li>
         <li style="margin-top: 20vh;"><button class="btn tweet-btn"  (click)="this.authservice.SignOut()">Logout</button></li>
-        
+    
     </ul>
 </div>
 </div>
@@ -30,6 +29,7 @@
     <section class="searchbar">
         <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
         <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
+        <button class="btn">Search</button>
     </section>
     
     </div>

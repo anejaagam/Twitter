@@ -1,11 +1,8 @@
-import { Observable } from "rxjs";
-
-export interface UserInfo {
+export interface SecondUserInfo {
     name: string;
-    bday: string;
     username: string;
-    photoURL?: any;
-    coverPhotoUrl?: any;
+    photoURL?: string;
+    coverPhotoUrl?: string;
     verified : boolean;
     followers: number;
     followed: number;

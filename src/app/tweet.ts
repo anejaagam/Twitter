@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 
 export interface Tweet {
     id?: any;
@@ -12,4 +13,5 @@ export interface Tweet {
     time?: any;
     timeStamp: any;
     likedBy: any;
+    pfp?: Observable<string | null>;
 }

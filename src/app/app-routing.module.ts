@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'feed', component: FeedComponent},
   { path: 'explore', component: ExploreComponent},
-  { path: 'bookmarks', component: BookmarksComponent},
+  
   { path: 'notifications', component: NotificationsComponent},
   {path: 'messages', component: MessagesComponent}
 ];
