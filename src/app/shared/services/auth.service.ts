@@ -52,7 +52,7 @@ export class AuthService {
       });
   }
   // Sign up with email/password
-  SignUp(email: string, password: string, username:string, bday: string) {
+  SignUp(email: string, password: string, username:string, bday: string, name:string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -60,7 +60,7 @@ export class AuthService {
         up and returns promise */
         
         this.SendVerificationMail();
-        this.SetUserData(result.user, username);
+        this.SetUserData(result.user, username, bday, name);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -95,10 +95,28 @@ export class AuthService {
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any, userName:string) {
+  SetUserData(user: any, userName:string, userBday?:string, name?:string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
+    const userRef2: AngularFirestoreDocument<any> = this.afs.doc(
+      `userInfo/${userName}`
+    );
+   
+    const userInfo: UserInfo = {
+      name:name,
+      username: userName,
+      verified: false,
+      bday: userBday,
+      photoURL: 'default/Default_pfp.jpeg',
+      coverPhotoUrl: 'default/Default_pfp.jpeg',
+      followers: 0,
+      followed: 0,
+      NumberOfTweets: 0,
+      bio: "Hi I just joined Twitter!",
+      email: user.email
+    };
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
     const userData: UserData = {
       uid: user.uid,
       email: user.email,
@@ -107,6 +125,8 @@ export class AuthService {
       emailVerified: user.emailVerified,
     };
     return userRef.set(userData, {
+      merge: true,
+    }), userRef2.set(userInfo, {
       merge: true,
     });
   }

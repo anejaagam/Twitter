@@ -5,6 +5,7 @@ import { Tweet } from 'src/app/tweet';
 import {formatDate} from '@angular/common';
 import { object } from 'rxfire/database';
 import { doc, docData, Firestore, getDoc, waitForPendingWrites } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class TweetService {
   tweet: Observable<Tweet[]>;
   model:Tweet;
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
-  public db : Firestore) { 
+  public db : Firestore, public st: AngularFireStorage) { 
     
   }
 PostTweet(tweet: HTMLInputElement){
@@ -37,7 +38,7 @@ PostTweet(tweet: HTMLInputElement){
     likedBy: ['Twitter']
   }
   this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
-  this.tweetRef.set(this.model,{
+  this.tweetRef.set(JSON.parse(JSON.stringify(this.model)),{
     merge: true,
   }).then(()=>{
     window.location.reload();
@@ -79,6 +80,14 @@ GetTweet(id:any){
    
  
   return TweetRef.get();
+}
+
+Getpfp (pfpURL: any): Observable<string | null> {
+  let Tweetpfp: Observable<string|null>;
+  const ref = this.st.ref(pfpURL);
+  Tweetpfp = ref.getDownloadURL();
+  console.log(pfpURL);
+  return Tweetpfp;
 }
 
 LikeDislikeTweet(id: any){

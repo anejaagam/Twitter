@@ -1,14 +1,12 @@
-
-export interface UserInfo {
+export interface SecondUser {
     name: string | undefined;
-    bday: string| undefined;
-    email: string | undefined;
     username: string;
     photoURL?: string;
     coverPhotoUrl?: string;
     verified : boolean;
-    followers: any;
-    followed: any;
+    followers: number;
+    followed: number;
     NumberOfTweets: number;
     bio?: string;
+    
 }
