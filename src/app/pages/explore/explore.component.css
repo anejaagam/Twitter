@@ -378,15 +378,23 @@ margin-top: 250px;
   object-fit: cover;
 }
 
-.mytweets {
+.myusers {
   box-sizing: border-box;
  display:flex;
- 
-  
   border: 3px;
 }
-.tweet{
+.mytweet {
+  box-sizing: border-box;
+ display:flex;
+  border: 3px;
+
+}
+.users{
   
+  width: 100%;
+
+}
+.tweet{
   
   width: 100%;
 

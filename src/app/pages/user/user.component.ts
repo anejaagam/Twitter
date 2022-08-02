@@ -43,8 +43,7 @@ export class UserComponent implements OnInit {
     public afs : AngularFirestore,
     public router: Router,
     public Tweet : TweetService) { 
-      const ref = this.storage.ref(this.userInfo.photoURL);
-      this.pfp = ref.getDownloadURL();
+      console.log(this.userInfo.photoURL)
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
       this.userTweets = Tweet.UserTweets(this.userInfo.username);
   }
@@ -77,6 +76,7 @@ export class UserComponent implements OnInit {
     );
    
     getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
+      this.userInfo.photoURL = url;
       userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: url, coverPhotoUrl: this.userInfo.coverPhotoUrl}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo));window.location.reload();});
     })
     

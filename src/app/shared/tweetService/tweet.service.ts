@@ -84,6 +84,25 @@ UserTweets(username: string){
   return userTweets;
 }
 
+TweetContTweets(tweetCont: string){
+  const Tweets: unknown[] = [];
+  let tweetLikedBy = []
+  this.afs.collection("Tweets", (ref) => ref.where("Tweet", "==", tweetCont))
+  .snapshotChanges()
+  .subscribe((data) => {
+    
+    data.forEach((doc) => {
+      const y:any = doc.payload.doc.data();
+      
+      Tweets.push(y);
+      
+    });
+    
+  });
+  
+  return Tweets;
+}
+
 DeleteTweet(id: any){
   let tweetId = id;
   this.tweetRef = this.afs.doc(`Tweets/${tweetId}`);

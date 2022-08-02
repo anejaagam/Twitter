@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { HomeComponent } from 'src/app/pages/home/home.component';
 import { UserComponent } from 'src/app/pages/user/user.component';
 import { UserInfo } from 'src/app/user-info';
+import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 @Injectable({
   providedIn: 'root',
 })
@@ -117,7 +118,8 @@ export class AuthService {
       bio: "Hi I just joined Twitter!",
       email: user.email
     };
-    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    
+    
     const userData: UserData = {
       uid: user.uid,
       email: user.email,
@@ -125,11 +127,16 @@ export class AuthService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
     };
-    return userRef.set(userData, {
+    userRef.set(userData, {
       merge: true,
-    }), userRef2.set(userInfo, {
-      merge: true,
-    });
+    }).then(()=>{
+      userRef2.set(userInfo, {
+        merge: true,
+      }).then(()=>{getDownloadURL(ref(getStorage(),userInfo.photoURL)).then((url)=>{
+        userRef2.update({photoURL: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(userInfo));});
+      })})
+    })
+    
   }
 
   

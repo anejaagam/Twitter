@@ -29,12 +29,13 @@
     
     <section class="searchbar">
         <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
-        <input #explore type="text" name="search" id="searchbox" placeholder="Find Users">
-        <button class="btn" (click)="findUser(explore)">Search</button>
+        <input #explore type="text" name="search" id="searchbox" placeholder="Search Twitter">
+        <button class="btn" (click)="findUser(explore); findTweet(explore)">Search</button>
     </section>
-    <h3 style="margin-top: 30px;margin-bottom: 20px;"> Users: </h3>
-    <div class="mytweets" *ngFor="let user of users;let indexOfelement=index;">
-        <div class="tweet" >
+    <div *ngIf="users">
+    <h3 style="margin-top: 30px;margin-bottom: 20px;" > Users: </h3></div>
+    <div class="myusers" *ngFor="let user of users;let indexOfelement=index;">
+        <div class="users" >
         <div class="row container">
             <div class="col-2" style="box-sizing: border-box;">
         <img style="box-sizing: border-box;"  [src]='user.photoURL' alt="avi" class="avi">
@@ -44,7 +45,7 @@
             <div class = "username"><strong>{{user.name}}</strong><br> @{{user.username}}<br>{{user.followers}} Followers</div>
             </div>
             </div>
-            <div class="col-3">
+            <div class="col-3" *ngIf="!(user.username == this.userInfo.username)">
                 <div style="box-sizing: border-box;">
                     <div class = "follow"><button class="btn-primary btn">Follow</button></div>
                     </div>
@@ -52,8 +53,28 @@
             
         </div>
     </div>
-
-    
+    </div>
+    <h3 style="margin-top: 30px;margin-bottom: 20px;" *ngIf="feedTweets">Tweets:</h3>
+    <div class="mytweets" *ngFor="let tweet of this.feedTweets;let indexOfelement=index;">
+        <div class="tweet" >
+        <div class="row container">
+            <div class="col-2" style="box-sizing: border-box;">
+        <img style="box-sizing: border-box;"  [src]='tweet.pfpURL' alt="avi" class="avi">
+            </div>
+            <div class="col" >
+                <div style="box-sizing: border-box;">
+            <div class = "usename">{{tweet.name}} @{{tweet.username}} - {{tweet.timeStamp}}</div>
+            <div class="tweetcontent">{{tweet.Tweet}}</div>
+            </div>
+        </div>
+            <div class="retweeticons">
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
+            </div>
+        </div>
+        </div>
     </div>
     
     </div>

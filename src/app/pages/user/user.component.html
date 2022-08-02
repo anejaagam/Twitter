@@ -35,7 +35,7 @@
         <section class="twitterprofile">
             <div class="headerprofileimage">
                 <img [src]="banner | async" alt="header" id="headerimage">
-                <img [src]="pfp | async" alt="profile pic" id="profilepic">
+                <img [src]="this.userInfo.photoURL" alt="profile pic" id="profilepic">
                 <div class="editprofile"> <button type = "button" class="btn" data-toggle ="modal" data-target="#modalEditprofile"> Edit Profile</button></div>
             </div>
             <div class="bio">
@@ -69,7 +69,7 @@
             <div class="tweet" >
             <div class="row container">
                 <div class="col-2" style="box-sizing: border-box;">
-            <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
+            <img style="box-sizing: border-box;" [src]="this.userInfo.photoURL" alt="avi" class="avi">
                 </div>
                 <div class="col" >
                     <div style="box-sizing: border-box;">

@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-explore',
@@ -31,16 +32,32 @@ export class ExploreComponent implements OnInit {
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService,
-    public userInter: UserInteractionService) { 
-    const ref = this.storage.ref(this.userInfo.photoURL);
-    this.pfp = ref.getDownloadURL();
-    this.feedTweets = TweetService.UserTweets(this.userInfo.username);
+    public userInter: UserInteractionService,
+    public afs: AngularFirestore ) { 
+   
+    
   }
 
   findUser(explore:HTMLInputElement){
     const demand: string = explore.value;
     this.users = this.userInter.FindUser(demand);
 
+  }
+  findTweet(explore: HTMLInputElement){
+    
+    this.afs.collection("Tweets", (ref) => ref.where("Tweet", ">=", explore.value))
+    .snapshotChanges()
+    .subscribe((data) => {
+      this.feedTweets = [];
+      data.forEach((doc) => {
+        const y:any = doc.payload.doc.data();
+       
+        this.feedTweets.push(y);
+        
+      });
+      
+    });
+    
   }
 
   ngOnInit(): void {
