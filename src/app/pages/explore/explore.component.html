@@ -29,8 +29,32 @@
     
     <section class="searchbar">
         <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
-        <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
+        <input #explore type="text" name="search" id="searchbox" placeholder="Find Users">
+        <button class="btn" (click)="findUser(explore)">Search</button>
     </section>
+    <h3 style="margin-top: 30px;margin-bottom: 20px;"> Users: </h3>
+    <div class="mytweets" *ngFor="let user of users;let indexOfelement=index;">
+        <div class="tweet" >
+        <div class="row container">
+            <div class="col-2" style="box-sizing: border-box;">
+        <img style="box-sizing: border-box;"  [src]='user.photoURL' alt="avi" class="avi">
+            </div>
+            <div class="col" >
+                <div style="box-sizing: border-box;">
+            <div class = "username"><strong>{{user.name}}</strong><br> @{{user.username}}<br>{{user.followers}} Followers</div>
+            </div>
+            </div>
+            <div class="col-3">
+                <div style="box-sizing: border-box;">
+                    <div class = "follow"><button class="btn-primary btn">Follow</button></div>
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+    </div>
     
     </div>
 

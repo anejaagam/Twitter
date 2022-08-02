@@ -45,7 +45,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['user']);
         });
-        this.SetUserData(result.user, username);
+       
       })
       .catch((error) => {
         window.alert(error.message);
@@ -60,7 +60,7 @@ export class AuthService {
         up and returns promise */
         
         this.SendVerificationMail();
-        this.SetUserData(result.user, username, bday, name);
+        this.SetUserData1(result.user, username, bday, name);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -95,7 +95,8 @@ export class AuthService {
   /* Setting up user data when sign in with username/password, 
   sign up with username/password and sign in with social auth  
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  SetUserData(user: any, userName:string, userBday?:string, name?:string) {
+  
+  SetUserData1(user: any, userName:string, userBday?:string, name?:string) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );

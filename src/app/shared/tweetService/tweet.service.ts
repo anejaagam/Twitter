@@ -6,6 +6,8 @@ import {formatDate} from '@angular/common';
 import { object } from 'rxfire/database';
 import { doc, docData, Firestore, getDoc, waitForPendingWrites } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
+import { push } from '@firebase/database';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,13 @@ export class TweetService {
   private tweetRef: AngularFirestoreDocument<any>;
   tweet: Observable<Tweet[]>;
   model:Tweet;
+  
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
-  public db : Firestore, public st: AngularFireStorage) { 
+  public db : Firestore, public st: AngularFireStorage,) { 
+    
     
   }
-PostTweet(tweet: HTMLInputElement){
+async PostTweet(tweet: HTMLInputElement){
   let tweetString = tweet.value;
   
   this.model = {
@@ -38,11 +42,27 @@ PostTweet(tweet: HTMLInputElement){
     likedBy: ['Twitter']
   }
   this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
+  
   this.tweetRef.set(JSON.parse(JSON.stringify(this.model)),{
     merge: true,
   }).then(()=>{
-    window.location.reload();
+    getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
+      this.tweetRef.update({pfpURL: url}).then(()=>{window.location.reload();});
+    })
+  
+  
+    
   });
+}
+
+getIMGDownloadURL(pfp: any): any{
+  const URL: string[] = []
+  getDownloadURL(ref(getStorage(),pfp)).then((url)=>{
+    URL.push(url);
+    return URL;
+  })
+  console.log(URL)
+  
 }
 
 UserTweets(username: string){
@@ -82,13 +102,7 @@ GetTweet(id:any){
   return TweetRef.get();
 }
 
-Getpfp (pfpURL: any): Observable<string | null> {
-  let Tweetpfp: Observable<string|null>;
-  const ref = this.st.ref(pfpURL);
-  Tweetpfp = ref.getDownloadURL();
-  console.log(pfpURL);
-  return Tweetpfp;
-}
+
 
 LikeDislikeTweet(id: any){
  let tweet:any;

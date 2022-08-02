@@ -14,6 +14,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
+import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 
 @Component({
   selector: 'app-explore',
@@ -25,13 +26,21 @@ export class ExploreComponent implements OnInit {
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
+  users: any;
 
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
-    public TweetService: TweetService) { 
+    public TweetService: TweetService,
+    public userInter: UserInteractionService) { 
     const ref = this.storage.ref(this.userInfo.photoURL);
     this.pfp = ref.getDownloadURL();
     this.feedTweets = TweetService.UserTweets(this.userInfo.username);
+  }
+
+  findUser(explore:HTMLInputElement){
+    const demand: string = explore.value;
+    this.users = this.userInter.FindUser(demand);
+
   }
 
   ngOnInit(): void {

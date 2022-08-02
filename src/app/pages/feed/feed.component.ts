@@ -26,16 +26,25 @@ export class FeedComponent implements OnInit {
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
+  calledBefore: boolean;
 
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService) { 
-    const ref = this.storage.ref(this.userInfo.photoURL);
-    this.pfp = ref.getDownloadURL();
+    
     this.feedTweets = TweetService.UserTweets(this.userInfo.username);
   }
 
   ngOnInit(): void {
+  }
+  Getpfp (pfpURL: any): Observable<string | null | undefined> {
+    let Tweetpfp: Observable<string|null | undefined>;
+    const ref = this.storage.ref(pfpURL);
+    Tweetpfp = ref.getDownloadURL();
+    
+      return Tweetpfp ;
+    
+
   }
   faBell = faBell;
   faTwitter = faTwitter;
