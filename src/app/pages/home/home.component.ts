@@ -39,9 +39,9 @@ export class HomeComponent implements OnInit {
     let name = regName.value;
     let bday = regBday.value;
     let loginData = {Useremail,Userpassword};
-    this.authService.SignUp(Useremail,Userpassword, username , bday);
-    this.SetUserProfileInfo(username,bday,name);
-  }
+    this.authService.SignUp(Useremail,Userpassword, username , bday, name);
+    //this.SetUserProfileInfo(username,bday,name);
+``  }
     
     //signInWithEmailAndPassword(auth, email, password)
   //.then((userCredential) => {
@@ -54,11 +54,11 @@ export class HomeComponent implements OnInit {
    // const errorCode = error.code;
   //  const errorMessage = error.message;
   //});
-ClickLogin(LgEmail :HTMLInputElement, LgPass : HTMLInputElement, LgUsername :HTMLInputElement){
-  this.GetUserProfileInfo(LgUsername.value, LgEmail.value,LgPass.value);
+ClickLogin( LgPass : HTMLInputElement, LgUsername :HTMLInputElement){
+  this.GetUserProfileInfo(LgUsername.value,LgPass.value);
 }
 
-GetUserProfileInfo(userName:string, email: string, password:string) {
+GetUserProfileInfo(userName:string, password:string) {
   let userData :any;
   const userRef = doc(this.db,'userInfo', userName);
   const userSnap = getDoc(userRef).then(
@@ -75,40 +75,18 @@ GetUserProfileInfo(userName:string, email: string, password:string) {
           followers: userData.followers,
           followed: userData.followed,
           NumberOfTweets: userData.NumberOfTweets,
-          bio:userData.bio
+          bio:userData.bio,
+          email: userData.email,
+          following: userData.following,
+          follows:userData.follows
     
         };
         
-        this.authService.SignIn(email,password,userName);
+        this.authService.SignIn(userData.email,password,userName);
         localStorage.setItem('userInfo', JSON.stringify(userInfo)); 
     }
   );
   
-  
-}
-
-SetUserProfileInfo(userName:string, userBday:string, name:string) {
-  const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-    `userInfo/${userName}`
-  );
-  const ref = this.st.ref('default/Default_pfp.jpeg');
-  const userInfo: UserInfo = {
-    name:name,
-    username: userName,
-    verified: false,
-    bday: userBday,
-    photoURL: 'default/Default_pfp.jpeg',
-    coverPhotoUrl: 'default/Default_pfp.jpeg',
-    followers: 0,
-    followed: 0,
-    NumberOfTweets: 0,
-    bio: "Hi I just joined Twitter!"
-  };
-  localStorage.setItem('userInfo', JSON.stringify(userInfo));
-  return userRef.set(userInfo, {
-    merge: true,
-  });
-
   
 }
 

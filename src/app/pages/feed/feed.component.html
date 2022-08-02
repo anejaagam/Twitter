@@ -25,13 +25,32 @@
 <!-- END OF LEFT FIXED MENU -->
 
 <div class="col-6 middlecontainer">
+    <div class = "row" style="margin-top: 5vh;">
+    <div class="col-2 align-self-start" style="box-sizing: border-box;">
+        <img class="avi" [src]="this.userInfo.photoURL">
+    </div>
+    <div class="col-10 ">
+        <form class="top-row">
+        <input class="new-tweet1" #newtweet1 placeholder="Say whats on your mind..." style="width: 100%; border: none; height: 10vh;">
+        </form>
+    </div>
+
+        <div class="col-12 justify-content-end" style="width: 100%; box-sizing: border-box;">
+       
+        <!-- Tweet Button -->
+        <button class=" btn btn-primary" (click)="TweetService.PostTweet(newtweet1)" style="margin-bottom: 30px; padding:5px; width: 100px;float: right; margin-right: 20px; border-radius: 29px;">Tweet</button>
+        </div>
+    </div>
+   
+
+  
 
     
     <div class="mytweets" *ngFor="let tweet of this.feedTweets;let indexOfelement=index;">
         <div class="tweet" >
         <div class="row container">
             <div class="col-2" style="box-sizing: border-box;">
-        <img style="box-sizing: border-box;" [src]="pfp | async" alt="avi" class="avi">
+        <img style="box-sizing: border-box;"  [src]='tweet.pfpURL' alt="avi" class="avi">
             </div>
             <div class="col" >
                 <div style="box-sizing: border-box;">
@@ -44,11 +63,10 @@
                 <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
                 <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
                 <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
+                <span *ngIf="tweet.username == this.userInfo.username"><button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(tweet.id)"><fa-icon [icon]="faTrash"  aria-hidden="true"></fa-icon></button></span>
             </div>
         </div>
-    </div>
-
-    
+        </div>
     </div>
     
     </div>
@@ -57,15 +75,7 @@
     <!-- RIGHT CONTAINER -->
 
     <div class="col-3">
-        <section class="searchbar">
-            <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
-            <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
-        </section>
-
-        <section class="twittermedia">
-            <div><img src="../../../assets/TwitterBackgroundPage.png" alt="media"></div>
-            
-        </section>
+       
 
         <section class="trends">
             <div class="headertrends">
@@ -92,4 +102,31 @@
 
 </div>
 </div>
+
+<div class="modal fade" tabindex="-1"  id="modalComposetweet">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <!-- <h5 class="modal-title">Modal title</h5> -->
+          <h2 class="fw-bold mb-0">Compose Tweet</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body p-5 pt-0">
+          <form class="ComposeTweet">
+            
+            <div class="form-floating mb-3">
+                <input type="text" #newTweet class="form-control floating-input floating-input1 rounded-3" id="newTweet"  required>
+                <label for="floatingInput"> Tweet away...</label>
+              </div>
+        
+            
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="TweetService.PostTweet(newTweet)" >Post Tweet</button>
+            <small class="text-muted">By clicking Post tweet, your tweet is sent to the world!</small>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
  

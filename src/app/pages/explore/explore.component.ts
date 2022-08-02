@@ -14,6 +14,9 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
+import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-explore',
@@ -25,15 +28,61 @@ export class ExploreComponent implements OnInit {
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
-
+  users: any;
+  follows = this.userInfo.follows;
+  
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
-    public TweetService: TweetService) { 
-    const ref = this.storage.ref(this.userInfo.photoURL);
-    this.pfp = ref.getDownloadURL();
-    this.feedTweets = TweetService.UserTweets(this.userInfo.username);
+    public TweetService: TweetService,
+    public userInter: UserInteractionService,
+    public afs: AngularFirestore,
+    public router: Router) { 
+   
+    console.log(this.userInfo.follows)
   }
 
+  findUser(explore:HTMLInputElement){
+    const demand: string = explore.value;
+    this.users = this.userInter.FindUser(demand);
+
+  }
+  userTweet(username:string){
+    const userTweets: any[] = []
+    this.afs.collection("Tweets", (ref) => ref.where("username", "==", username))
+    .snapshotChanges()
+    .subscribe((data) => {
+      this.feedTweets = [];
+      data.forEach((doc) => {
+        const y:any = doc.payload.doc.data();
+       
+        this.feedTweets.push(y);
+        
+      });
+      
+    });
+    return userTweets
+  }
+  findTweet(explore: HTMLInputElement){
+    
+    this.afs.collection("Tweets", (ref) => ref.where("Tweet", "==", explore.value))
+    .snapshotChanges()
+    .subscribe((data) => {
+      this.feedTweets = [];
+      data.forEach((doc) => {
+        const y:any = doc.payload.doc.data();
+       
+        this.feedTweets.push(y);
+        
+      });
+      
+    });
+    
+  }
+goToPage(username:string){
+  this.userInter.goToPage(username).then(()=>{
+    this.router.navigate(['other']);
+  })
+}
   ngOnInit(): void {
   }
   faBell = faBell;

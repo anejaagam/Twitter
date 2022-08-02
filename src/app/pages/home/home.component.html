@@ -21,20 +21,14 @@
                 </h3>
             </div>
         </div>
-        <div class='div-3'>
+        <div class='div-3' style="margin-top: 10vh;">
           <div class='sub-div-3 form-floating mb-3'>
               <input type="text" #LgUsername class="form-control rounded-3" id="Username" placeholder="Username" required minlength="4">
               <label for="Username">Username</label>
           </div>
           
       </div>
-        <div class='div-3'>
-            <div class='sub-div-3 form-floating mb-3'>
-                <input type="text" #LgEmail class="form-control rounded-3" id="Email" placeholder="Email" required minlength="4">
-                <label for="Username">Email</label>
-            </div>
-            
-        </div>
+       
         <div class='div-3'>
             <div class='sub-div-3 form-floating mb-3'>
                 <input type="password" #LgPass class="form-control rounded-3" id="Password" placeholder="Password" required  minlength="8" maxlength="16">
@@ -43,7 +37,7 @@
         </div>
         <div class='div-5'>
             <div class='sub-div-5'>
-                <button class= "btn btn-outline-dark btn-lg" id="loginbtn" type="button" (click)="ClickLogin(LgEmail, LgPass, LgUsername)">Log in</button><br>
+                <button class= "btn btn-outline-dark btn-lg" id="loginbtn" type="button" (click)="ClickLogin(LgPass, LgUsername)">Log in</button><br>
                 
             </div>
         </div>

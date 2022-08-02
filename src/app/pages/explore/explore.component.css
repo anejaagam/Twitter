@@ -252,3 +252,244 @@ text-align: center;
 
 /* RIGHT VERTICAL CONTAINER */
 
+
+.flexcontainer {
+
+  left: 300px;
+}
+
+.middlecontainer {
+ 
+  position: relative;
+ 
+  border-right: 1px solid rgb(155, 157, 160);
+  border-left: 1px solid rgb(155, 157, 160);
+  height: 100%;
+
+}
+
+.headsec {
+  display: flex;
+  margin-top: 5px;
+
+}
+
+#fa-arrow-left {
+  color: blue;
+  filter: brightness(70%);
+  font-size: 20px;
+  margin: 10px 20px 0 20px;
+  cursor: pointer;
+}
+
+#header-tweetcnt {
+  margin-bottom: 5px;
+}
+
+.headerprofileimage {
+ 
+  position: relative;
+
+
+}
+
+#headerimage {
+ width: 100%;
+  
+  height:200px;
+}
+
+#profilepic {
+  border-radius: 50%;
+  width: 120px;
+  height:120px;
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  border: 2px solid rgb(21, 32, 43);
+  object-fit: cover;
+}
+
+.editprofile {
+  margin-top: 50px;
+  float: right;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 10px;
+margin-top: 250px;
+}
+
+.bio {
+  margin-top: 55px;
+  margin-left: 20px;
+  line-height: 40px;
+  font-size: 15px;
+}
+
+.handle {
+  line-height: 19px;
+  margin-bottom: 10px;
+}
+
+.followers {
+  margin-right: 15px;
+}
+
+.nawa {
+  display: flex;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  font-weight: bold;
+  
+
+}
+
+.heading button {
+  display: block;
+  cursor: pointer;
+  border-radius: 0;
+  width: 100%;
+  padding-top:10px;
+  padding-bottom:10px;
+  border: 0;
+}
+
+.active-rn{
+  border-bottom: #1DA1F2 4px solid !important;
+}
+
+.heading button:hover {
+  background-color: #e4eaed;
+}
+
+.avi {
+  width: 75px;
+  border-radius: 50%;
+  margin-left: 20%;
+  height: 75px;
+  font-weight: bold;
+  object-fit: cover;
+}
+
+.myusers {
+  box-sizing: border-box;
+ display:flex;
+  border: 3px;
+}
+.mytweet {
+  box-sizing: border-box;
+ display:flex;
+  border: 3px;
+
+}
+.users{
+  
+  width: 100%;
+
+}
+.tweet{
+  
+  width: 100%;
+
+}
+.username{
+  margin-top: 0.5%;
+}
+.follow{
+  margin-top: 15%;
+  
+}
+.follow button{
+  width: 80%;
+}
+.tweetcontent {
+  box-sizing: border-box;
+  margin-top: 5px;
+  object-fit: fill;
+  
+  width: 100%;
+}
+
+
+.retweeticons {
+  
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+
+
+
+
+
+}
+
+/* RIGHT VERTICAL CONTAINER */
+
+.flexcontainer {
+  display: flex;
+}
+
+
+
+
+.twittermedia {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgb(155, 157, 160);
+  border-radius: 20px;
+  margin: 10px 0 0 25px;
+  width: 300px;
+}
+
+.twittermedia img {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+}
+
+.trends {
+  margin: 30px 0 0 25px;
+  width: 300px;
+  border: 1px solid rgb(155, 157, 160);
+  border-radius: 15px;
+  padding: 10px 0;
+}
+
+#fa-cog {
+  color: royalblue;
+  margin-top: 5px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.headertrends {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(155, 157, 160);
+  padding: 10px;
+text-align: center;
+}
+
+.trending {
+  filter: brightness(50%)
+}
+
+.trenditem {
+  border-bottom: 1px solid rgb(155, 157, 160);
+  padding: 15px;
+  line-height: 22px;
+}
+
+.hashtag {
+  font-weight: bolder;
+
+}

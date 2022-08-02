@@ -29,6 +29,7 @@ import { ExploreComponent } from './pages/explore/explore.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
 import { MessagesComponent } from './pages/messages/messages.component';
+import { OthersComponent } from './pages/others/others.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
     NotificationsComponent,
     BookmarksComponent,
     MessagesComponent,
+    OthersComponent,
     
   ],
   imports: [

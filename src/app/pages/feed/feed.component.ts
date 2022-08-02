@@ -11,6 +11,7 @@ import { faComment } from '@fortawesome/free-solid-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
@@ -26,16 +27,31 @@ export class FeedComponent implements OnInit {
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
+  calledBefore: boolean;
+  feedTweets1: any;
+  feedTweets2: any;
 
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService) { 
-    const ref = this.storage.ref(this.userInfo.photoURL);
-    this.pfp = ref.getDownloadURL();
-    this.feedTweets = TweetService.UserTweets(this.userInfo.username);
+    const tweetseveryone: string | any = []
+    
+    this.feedTweets1 = TweetService.followerTweets();
+    this.feedTweets2 = TweetService.UserTweets(this.userInfo.username);
+    this.feedTweets = TweetService.FeedTweets(this.userInfo.username);
+    console.log(tweetseveryone)
   }
 
   ngOnInit(): void {
+  }
+  Getpfp (pfpURL: any): Observable<string | null | undefined> {
+    let Tweetpfp: Observable<string|null | undefined>;
+    const ref = this.storage.ref(pfpURL);
+    Tweetpfp = ref.getDownloadURL();
+    
+      return Tweetpfp ;
+    
+
   }
   faBell = faBell;
   faTwitter = faTwitter;
@@ -48,5 +64,5 @@ export class FeedComponent implements OnInit {
   faHeart = faHeart;
   faUpload = faUpload;
   faRetweet = faRetweet;
-  
+  faTrash = faTrash;
 }

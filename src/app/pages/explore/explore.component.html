@@ -29,8 +29,58 @@
     
     <section class="searchbar">
         <div class="searchicon"><i class="fa fa-search" aria-hidden="true"></i></div>
-        <input type="text" name="search" id="searchbox" placeholder="Search Twitter">
+        <input #explore type="text" name="search" id="searchbox" placeholder="Search Twitter">
+        <button class="btn" (click)="findUser(explore); findTweet(explore)">Search</button>
     </section>
+    <div *ngIf="users">
+    <h3 style="margin-top: 30px;margin-bottom: 20px;" > Users: </h3></div>
+    <div class="myusers" *ngFor="let user of users;let indexOfelement=index;">
+        <div class="users" >
+        <div class="row container">
+            <div class="col-2" style="box-sizing: border-box;">
+        <img style="box-sizing: border-box;"  [src]='user.photoURL' alt="avi" class="avi">
+            </div>
+            <div class="col" >
+                <div style="box-sizing: border-box;">
+            <div class = "username"><button class="btn" (click)="goToPage(user.username)"><strong>{{user.name}}</strong></button><br> @{{user.username}}<br>{{user.followers}} Followers</div>
+            </div>
+            </div>
+            <div class="col-3" *ngIf="!(user.username == this.userInfo.username)&& !(this.follows.includes(user.username))">
+                <div style="box-sizing: border-box;">
+                    <div class = "follow"><button class="btn-primary btn" (click)="userInter.followUser(user.username)">Follow</button></div>
+                    </div>
+            </div>
+            <div class="col-3" *ngIf="!(user.username == this.userInfo.username) && (this.follows.includes(user.username))">
+                <div style="box-sizing: border-box;">
+                    <div class = "follow"><button class="btn-secondary btn"  (click)="userInter.unfollowUser(user.username)">Followed</button></div>
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    <h3 style="margin-top: 30px;margin-bottom: 20px;" *ngIf="feedTweets">Tweets:</h3>
+    <div class="mytweets" *ngFor="let tweet of this.feedTweets;let indexOfelement=index;">
+        <div class="tweet" >
+        <div class="row container">
+            <div class="col-2" style="box-sizing: border-box;">
+        <img style="box-sizing: border-box;"  [src]='tweet.pfpURL' alt="avi" class="avi">
+            </div>
+            <div class="col" >
+                <div style="box-sizing: border-box;">
+            <div class = "usename">{{tweet.name}} @{{tweet.username}} - {{tweet.timeStamp}}</div>
+            <div class="tweetcontent">{{tweet.Tweet}}</div>
+            </div>
+        </div>
+            <div class="retweeticons">
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
+            </div>
+        </div>
+        </div>
+    </div>
     
     </div>
 
@@ -65,4 +115,32 @@
 
 </div>
 </div>
- 
+<div class="modal fade" tabindex="-1"  id="modalComposetweet">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content rounded-4 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+          <!-- <h5 class="modal-title">Modal title</h5> -->
+          <h2 class="fw-bold mb-0">Compose Tweet</h2>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body p-5 pt-0">
+          <form class="ComposeTweet">
+            
+            <div class="form-floating mb-3">
+                <input type="text" #newTweet class="form-control floating-input floating-input1 rounded-3" id="newTweet"  required>
+                <label for="floatingInput"> Tweet away...</label>
+              </div>
+        
+            
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "saveEdit" (click)="TweetService.PostTweet(newTweet)" >Post Tweet</button>
+            <small class="text-muted">By clicking Post tweet, your tweet is sent to the world!</small>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--User Profile-->
+  

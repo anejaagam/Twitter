@@ -7,6 +7,7 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { OthersComponent } from './pages/others/others.component';
 import { UserComponent } from './pages/user/user.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { AuthGuard } from './shared/guard/auth.guard';
@@ -23,7 +24,9 @@ const routes: Routes = [
   { path: 'explore', component: ExploreComponent},
   { path: 'bookmarks', component: BookmarksComponent},
   { path: 'notifications', component: NotificationsComponent},
-  {path: 'messages', component: MessagesComponent}
+  {path: 'messages', component: MessagesComponent},
+  {path: 'other', component:OthersComponent}
+ 
 ];
 
 @NgModule({

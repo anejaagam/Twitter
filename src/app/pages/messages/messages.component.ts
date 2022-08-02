@@ -26,8 +26,7 @@ export class MessagesComponent implements OnInit {
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService) { 
-    const ref = this.storage.ref(this.userInfo.photoURL);
-    this.pfp = ref.getDownloadURL();
+   
     this.feedTweets = TweetService.UserTweets(this.userInfo.username);
   }
 
