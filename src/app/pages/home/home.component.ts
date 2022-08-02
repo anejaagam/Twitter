@@ -76,7 +76,9 @@ GetUserProfileInfo(userName:string, password:string) {
           followed: userData.followed,
           NumberOfTweets: userData.NumberOfTweets,
           bio:userData.bio,
-          email: userData.email
+          email: userData.email,
+          following: userData.following,
+          follows:userData.follows
     
         };
         

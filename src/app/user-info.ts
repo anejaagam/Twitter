@@ -11,4 +11,6 @@ export interface UserInfo {
     followed: any;
     NumberOfTweets: number;
     bio?: string;
+    following: string[];
+    follows: string[];
 }

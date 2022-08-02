@@ -116,7 +116,9 @@ export class AuthService {
       followed: 0,
       NumberOfTweets: 0,
       bio: "Hi I just joined Twitter!",
-      email: user.email
+      email: user.email,
+      following: [],
+      follows: [],
     };
     
     
