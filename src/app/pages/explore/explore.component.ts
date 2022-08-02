@@ -28,14 +28,14 @@ export class ExploreComponent implements OnInit {
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
   users: any;
-
+  follows = this.userInfo.follows;
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService,
     public userInter: UserInteractionService,
     public afs: AngularFirestore ) { 
    
-    
+    console.log(this.userInfo.follows)
   }
 
   findUser(explore:HTMLInputElement){

@@ -45,14 +45,14 @@
             <div class = "username"><strong>{{user.name}}</strong><br> @{{user.username}}<br>{{user.followers}} Followers</div>
             </div>
             </div>
-            <div class="col-3" *ngIf="!(user.username == this.userInfo.username)&& !(this.userInfo.follows.includes(user))">
+            <div class="col-3" *ngIf="!(user.username == this.userInfo.username)&& !(this.follows.includes(user.username))">
                 <div style="box-sizing: border-box;">
-                    <div class = "follow"><button class="btn-primary btn">Follow</button></div>
+                    <div class = "follow"><button class="btn-primary btn" (click)="userInter.followUser(user.username)">Follow</button></div>
                     </div>
             </div>
-            <div class="col-3" *ngIf="!(user.username == this.userInfo.username) && (this.userInfo.follows.includes(user))">
+            <div class="col-3" *ngIf="!(user.username == this.userInfo.username) && (this.follows.includes(user.username))">
                 <div style="box-sizing: border-box;">
-                    <div class = "follow"><button class="btn-primary btn">Followed</button></div>
+                    <div class = "follow"><button class="btn-secondary btn"  (click)="userInter.unfollowUser(user.username)">Followed</button></div>
                     </div>
             </div>
             

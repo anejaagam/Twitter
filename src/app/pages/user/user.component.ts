@@ -43,9 +43,10 @@ export class UserComponent implements OnInit {
     public afs : AngularFirestore,
     public router: Router,
     public Tweet : TweetService) { 
-      console.log(this.userInfo.photoURL)
+      console.log(this.userInfo.followed)
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
       this.userTweets = Tweet.UserTweets(this.userInfo.username);
+      
   }
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;
