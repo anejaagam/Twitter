@@ -12,7 +12,7 @@ export class UserInteractionService {
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
   public db : Firestore, public st: AngularFireStorage,) { }
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
-  FindUser(username : string){
+FindUser(username : string){
     const users: unknown[] = [];
     
   this.afs.collection("userInfo", (ref) => ref.where("username", "==", username))

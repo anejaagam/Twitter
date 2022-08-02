@@ -29,6 +29,7 @@ export class ExploreComponent implements OnInit {
   feedTweets: any;
   users: any;
   follows = this.userInfo.follows;
+  
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService,
@@ -42,6 +43,22 @@ export class ExploreComponent implements OnInit {
     const demand: string = explore.value;
     this.users = this.userInter.FindUser(demand);
 
+  }
+  userTweet(username:string){
+    const userTweets: any[] = []
+    this.afs.collection("Tweets", (ref) => ref.where("username", "==", username))
+    .snapshotChanges()
+    .subscribe((data) => {
+      this.feedTweets = [];
+      data.forEach((doc) => {
+        const y:any = doc.payload.doc.data();
+       
+        this.feedTweets.push(y);
+        
+      });
+      
+    });
+    return userTweets
   }
   findTweet(explore: HTMLInputElement){
     
