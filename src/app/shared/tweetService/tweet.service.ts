@@ -128,7 +128,7 @@ followerTweets(){
 TweetContTweets(tweetCont: string){
   const Tweets: unknown[] = [];
   let tweetLikedBy = []
-  this.afs.collection("Tweets", (ref) => ref.where("Tweet", "==", tweetCont))
+  this.afs.collection("Tweets", (ref) => ref.where("Tweet", "<=", tweetCont))
   .snapshotChanges()
   .subscribe((data) => {
     

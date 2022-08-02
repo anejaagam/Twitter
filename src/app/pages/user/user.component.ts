@@ -36,6 +36,7 @@ export class UserComponent implements OnInit {
   pfp: Observable<string | null>;
   banner: Observable<string | null>;
   userTweets: any;
+  
 
 
   constructor(public authservice : AuthService,
@@ -46,6 +47,9 @@ export class UserComponent implements OnInit {
       console.log(this.userInfo.followed)
       this.banner = this.storage.ref(this.userInfo.coverPhotoUrl).getDownloadURL();
       this.userTweets = Tweet.UserTweets(this.userInfo.username);
+      
+      
+      
       
   }
   AngularRef:AngularFireStorageReference;
