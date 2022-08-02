@@ -1,13 +1,15 @@
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
-import { user } from '@angular/fire/auth';
+import { user, UserInfo } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { arrayRemove, arrayUnion, Firestore, increment } from '@angular/fire/firestore';
+import { arrayRemove, arrayUnion, doc, Firestore, getDoc, increment } from '@angular/fire/firestore';
+import { UserInfo2 } from 'src/app/user-info2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserInteractionService {
+  router: any;
 
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
   public db : Firestore, public st: AngularFireStorage,) { }
@@ -29,6 +31,31 @@ FindUser(username : string){
   });
   
   return users;
+  }
+
+  async goToPage(username:string){
+    let userData :any;
+    const userRef = doc(this.db,'userInfo', username);
+    const userSnap = getDoc(userRef).then(
+    (e)=>{
+         userData = e.data();
+
+        const UserInfo2: UserInfo2 = {
+          name: userData.name,
+          username: username,
+          verified: false,
+          followers: userData.followers,
+          followed: userData.followed,
+          NumberOfTweets: userData.NumberOfTweets,
+          following: userData.following,
+          follows: userData.follows,
+          photoURL: userData.photoURL,
+          coverPhotoUrl: userData.coverPhotoUrl,
+          bio: userData.bio
+        };
+        localStorage.setItem('userInfo2', JSON.stringify(UserInfo2)); 
+        
+      })
   }
 
   followUser(username:string){

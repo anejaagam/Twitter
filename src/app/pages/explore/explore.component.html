@@ -42,7 +42,7 @@
             </div>
             <div class="col" >
                 <div style="box-sizing: border-box;">
-            <div class = "username"><strong>{{user.name}}</strong><br> @{{user.username}}<br>{{user.followers}} Followers</div>
+            <div class = "username"><button class="btn" (click)="goToPage(user.username)"><strong>{{user.name}}</strong></button><br> @{{user.username}}<br>{{user.followers}} Followers</div>
             </div>
             </div>
             <div class="col-3" *ngIf="!(user.username == this.userInfo.username)&& !(this.follows.includes(user.username))">

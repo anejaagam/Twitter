@@ -21,6 +21,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { Router } from '@angular/router';
 
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
+import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 
 
                    
@@ -28,10 +29,11 @@ import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './others.component.html',
+  styleUrls: ['./others.component.css']
 })
-export class UserComponent implements OnInit {
+export class OthersComponent implements OnInit {
+  userInfo2 = JSON.parse(localStorage.getItem('userInfo2')|| '{}');
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
   pfp: Observable<string | null>;
   banner: Observable<string | null>;
@@ -43,10 +45,11 @@ export class UserComponent implements OnInit {
     public storage :AngularFireStorage,
     public afs : AngularFirestore,
     public router: Router,
-    public Tweet : TweetService) { 
-      console.log(this.userInfo.followed)
+    public Tweet : TweetService,
+    public userInter: UserInteractionService) { 
+      console.log(this.userInfo2.followed)
       
-      this.userTweets = Tweet.UserTweets(this.userInfo.username);
+      this.userTweets = Tweet.UserTweets(this.userInfo2.username);
       
       
       
@@ -62,29 +65,29 @@ export class UserComponent implements OnInit {
 
   
   uploadPfp(event:any){
-    const id = `${this.userInfo.username}/pfp`;
+    const id = `${this.userInfo2.username}/pfp`;
     this.AngularRef = this.storage.ref(id).child('pfp.jpg');
     this.task = this.AngularRef.put(event.target.files[0]);
-    this.userInfo.photoURL = `${this.userInfo.username}/pfp/pfp.jpg`;
+    this.userInfo2.photoURL = `${this.userInfo2.username}/pfp/pfp.jpg`;
   }
   uploadbanner(event:any){
-    const id = `${this.userInfo.username}/banner`;
+    const id = `${this.userInfo2.username}/banner`;
     this.AngularRef = this.storage.ref(id).child('banner.jpg');
     this.task = this.AngularRef.put(event.target.files[0]);
-    this.userInfo.coverPhotoUrl = `${this.userInfo.username}/banner/banner.jpg`;
+    this.userInfo2.coverPhotoUrl = `${this.userInfo2.username}/banner/banner.jpg`;
   }
   EditUserClick(editName:HTMLInputElement,newBio:HTMLInputElement){
-    this.userInfo.bio = newBio.value;
-    this.userInfo.name = editName.value;
+    this.userInfo2.bio = newBio.value;
+    this.userInfo2.name = editName.value;
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `userInfo/${this.userInfo.username}`
+      `userInfo/${this.userInfo2.username}`
     );
    
-    getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
-      this.userInfo.photoURL = url;
-      userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: url, coverPhotoUrl: this.userInfo.coverPhotoUrl}).then(()=>{getDownloadURL(ref(getStorage(),this.userInfo.coverPhotoUrl)).then((url)=>{
-        this.userInfo.coverPhotoUrl = url;
-        userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo));window.location.reload();});
+    getDownloadURL(ref(getStorage(),this.userInfo2.photoURL)).then((url)=>{
+      this.userInfo2.photoURL = url;
+      userRef.update({bio: this.userInfo2.bio, name: this.userInfo2.name, photoURL: url, coverPhotoUrl: this.userInfo2.coverPhotoUrl}).then(()=>{getDownloadURL(ref(getStorage(),this.userInfo2.coverPhotoUrl)).then((url)=>{
+        this.userInfo2.coverPhotoUrl = url;
+        userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo2));window.location.reload();});
       })});
     })
     
@@ -110,5 +113,5 @@ export class UserComponent implements OnInit {
   faUpload = faUpload;
   faRetweet = faRetweet;
   faTrash = faTrash;
-  userProfileURL = this.userInfo.userProfileURL;
+  userProfileURL = this.userInfo2.userProfileURL;
 }

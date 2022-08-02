@@ -16,6 +16,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-explore',
@@ -34,7 +35,8 @@ export class ExploreComponent implements OnInit {
     public storage: AngularFireStorage,
     public TweetService: TweetService,
     public userInter: UserInteractionService,
-    public afs: AngularFirestore ) { 
+    public afs: AngularFirestore,
+    public router: Router) { 
    
     console.log(this.userInfo.follows)
   }
@@ -76,7 +78,11 @@ export class ExploreComponent implements OnInit {
     });
     
   }
-
+goToPage(username:string){
+  this.userInter.goToPage(username).then(()=>{
+    this.router.navigate(['other']);
+  })
+}
   ngOnInit(): void {
   }
   faBell = faBell;

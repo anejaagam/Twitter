@@ -1,4 +1,5 @@
 
+
 <div id="totop"></div>
 <a href="#totop" class="fa fa-arrow-up" id="fixedarrow"></a>
 <!-- <a href="#totop"><i class="fa fa-arrow-up" aria-hidden="true" id="fixedarrow"></i></a> -->
@@ -28,31 +29,30 @@
         <section class="headsec">
             <a routerLink="/feed"><i class="fa fa-arrow-left" id="fa-arrow-left"></i></a>
             <div>
-                <h5 id="header-username">{{userInfo.name}}</h5>
-                    <p id="header-tweetcnt">{{userInfo.NumberOfTweets}} Tweets</p>
+                <h5 id="header-username">{{userInfo2.name}}</h5>
+                    <p id="header-tweetcnt">{{userInfo2.NumberOfTweets}} Tweets</p>
             </div>
         </section>
         <section class="twitterprofile">
             <div class="headerprofileimage">
-                <img [src]="this.userInfo.coverPhotoUrl" alt="header" id="headerimage">
-                <img [src]="this.userInfo.photoURL" alt="profile pic" id="profilepic">
-                <div class="editprofile"> <button type = "button" class="btn" data-toggle ="modal" data-target="#modalEditprofile"> Edit Profile</button></div>
+                <img [src]="this.userInfo2.coverPhotoUrl" alt="header" id="headerimage">
+                <img [src]="this.userInfo2.photoURL" alt="profile pic" id="profilepic">
+                <span *ngIf="!(userInfo2.username == userInfo.username)&& !(userInfo.follows.includes(userInfo2.username))"><button class="btn-primary btn editprofile" (click)="userInter.followUser(userInfo2.username)">Follow</button></span>
+                <span  *ngIf="!(userInfo2.username == this.userInfo.username) && (userInfo.follows.includes(userInfo2.username))"><button class="btn-secondary btn editprofile"  (click)="userInter.unfollowUser(userInfo2.username)">Followed</button></span> 
             </div>
+           
             <div class="bio">
                 <div class="handle">
-                    <br><h3>{{userInfo.name}}</h3> 
-                    <span>@{{userInfo.username}}</span>
+                    <br><h3>{{userInfo2.name}}</h3> 
+                    <span>@{{userInfo2.username}}</span>
                 </div>
-                <p>{{userInfo.bio}}</p>
+                <p>{{userInfo2.bio}}</p>
                 
                 
-                <span> <i class="fa fa-location-arrow "></i> Kelowna, Canada. <a href="#"> <i
-                            class="fa fa-external-link" aria-hidden="true"></i></a> <i
-                        class="fa fa-birthday-cake" aria-hidden="true"></i> Born {{userInfo.bday}}</span>
-                <br> <span><i class="fa fa-calendar"></i> Joined July 2022</span>
+                
                 <div class="nawa">
-                    <div class="followers"> {{userInfo.followed}} <span>Following</span></div>
-                    <div>{{userInfo.followers}}<span> Followers</span></div>
+                    <div class="followers"> {{userInfo2.followed}} <span>Following</span></div>
+                    <div>{{userInfo2.followers}}<span> Followers</span></div>
                 </div>
             </div>
         </section>
@@ -82,7 +82,7 @@
                     <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
                     <button class="btn" style="width: 100%;"(click)="Tweet.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
                     <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
-                    <button class="btn" style="width: 100%;" (click)="Tweet.DeleteTweet(tweet.id)"><fa-icon [icon]="faTrash"  aria-hidden="true"></fa-icon></button>
+                   
                 </div>
             </div>
         </div>
