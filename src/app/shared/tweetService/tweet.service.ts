@@ -8,6 +8,7 @@ import { doc, docData, Firestore, getDoc, waitForPendingWrites } from '@angular/
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { push } from '@firebase/database';
+import { analyticInstance$ } from '@angular/fire/analytics';
 
 @Injectable({
   providedIn: 'root'
@@ -65,10 +66,25 @@ getIMGDownloadURL(pfp: any): any{
   
 }
 
-UserTweets(username: string){
+FeedTweets(username: string){
   const userTweets: unknown[] = [];
   let tweetLikedBy = []
-  this.afs.collection("Tweets", (ref) => ref.where("username", "==", username).orderBy("time", 'asc'))
+  const following: any[] = []
+  const usernameList: any = following.concat(this.userInfo.follows,username)
+  if(usernameList.length > 1){
+    this.afs.collection("Tweets", (ref) => ref.where("username", "in", usernameList).orderBy("time", 'desc'))
+  .snapshotChanges()
+  .subscribe((data) => {
+    
+    data.forEach((doc) => {
+      const y:any = doc.payload.doc.data();
+      
+      userTweets.push(y);
+      
+    });
+    
+  });} else{
+    this.afs.collection("Tweets", (ref) => ref.where("username", "==", username).orderBy("time", 'desc'))
   .snapshotChanges()
   .subscribe((data) => {
     
@@ -80,10 +96,35 @@ UserTweets(username: string){
     });
     
   });
+  }
+  
+  
+
+  
   
   return userTweets;
 }
 
+UserTweets(username:string){
+  const userTweets: unknown[] = []
+  this.afs.collection("Tweets", (ref) => ref.where("username", "==", username).orderBy("time", 'desc'))
+  .snapshotChanges()
+  .subscribe((data) => {
+    
+    data.forEach((doc) => {
+      const y:any = doc.payload.doc.data();
+      
+      userTweets.push(y);
+      
+    });
+    
+  });
+  return userTweets;
+}
+followerTweets(){
+  
+  
+}
 TweetContTweets(tweetCont: string){
   const Tweets: unknown[] = [];
   let tweetLikedBy = []
