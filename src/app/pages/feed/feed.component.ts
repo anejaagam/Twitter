@@ -15,6 +15,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
+import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -33,7 +35,9 @@ export class FeedComponent implements OnInit {
 
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
-    public TweetService: TweetService) { 
+    public TweetService: TweetService,
+    public userInter: UserInteractionService,
+    public router: Router) { 
     const tweetseveryone: string | any = []
     
     this.feedTweets1 = TweetService.followerTweets();
@@ -41,7 +45,11 @@ export class FeedComponent implements OnInit {
     this.feedTweets =  TweetService.FeedTweets(this.userInfo.username);
     
   }
-
+  goToPage(username:string){
+    this.userInter.goToPage(username).then(()=>{
+      this.router.navigate(['other']);
+    })
+  }
   ngOnInit(): void {
   }
   Getpfp (pfpURL: any): Observable<string | null | undefined> {

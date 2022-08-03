@@ -51,7 +51,8 @@ FindUser(username : string){
           follows: userData.follows,
           photoURL: userData.photoURL,
           coverPhotoUrl: userData.coverPhotoUrl,
-          bio: userData.bio
+          bio: userData.bio,
+          TweetIds: userData.TweetIds
         };
         localStorage.setItem('userInfo2', JSON.stringify(UserInfo2)); 
         

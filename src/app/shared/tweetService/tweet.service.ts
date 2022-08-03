@@ -31,6 +31,7 @@ async PostTweet(tweet: HTMLInputElement){
   
   this.model = {
     id : this.afs.createId(),
+    postedBy: this.userInfo.username,
     username: this.userInfo.username,
     Tweet: tweetString,
     pfpURL: this.userInfo.photoURL,
@@ -41,7 +42,8 @@ async PostTweet(tweet: HTMLInputElement){
     comments:['Twitter'],
     time: new Date,
     timeStamp: formatDate(Date.now(),'yyyy-MM-dd',this.locale),
-    likedBy: ['Twitter']
+    likedBy: ['Twitter'],
+    Reposted: false
   }
   this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
   this.userInfo.TweetIds.push(this.model.id);
@@ -136,9 +138,10 @@ getIMGDownloadURL(pfp: any): any{
   return userTweets;
 }
 
-UserTweets(username:string){
+UserTweets(username:string, TweetId?:[]){
   const userTweets: unknown[] = []
-  this.afs.collection("Tweets", (ref) => ref.where("id", "in", this.userInfo.TweetIds).orderBy("time", 'desc'))
+  if(username == this.userInfo.username){
+  this.afs.collection("Tweets", (ref) => ref.where("username", "==", this.userInfo.username).orderBy("time", 'desc'))
   .snapshotChanges()
   .subscribe((data) => {
     
@@ -149,7 +152,20 @@ UserTweets(username:string){
       
     });
     
-  });
+  });}else{
+    this.afs.collection("Tweets", (ref) => ref.where("id", "in", TweetId).orderBy("time", 'desc'))
+  .snapshotChanges()
+  .subscribe((data) => {
+    
+    data.forEach((doc) => {
+      const y:any = doc.payload.doc.data();
+      
+      userTweets.push(y);
+      
+    });
+    
+  })}
+  
   return userTweets;
 }
 followerTweets(){
@@ -195,12 +211,12 @@ GetTweet(id:any){
 
 
 
-LikeDislikeTweet(id: any){
+LikeDislikeTweet(Tweet: Tweet){
  let tweet:any;
   let tweetLikedBy: string[] = [];
   let currentLikes: number= 0;
   
-  const TweetRef = doc(this.db,'Tweets', id);
+  const TweetRef = doc(this.db,'Tweets', Tweet.id);
   const TweetSnap = getDoc(TweetRef).then(
     (e)=>{
         tweet = e.data();
@@ -217,24 +233,65 @@ LikeDislikeTweet(id: any){
         }
 
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-          `Tweets/${id}`
+          `Tweets/${Tweet.id}`
+        );
+        userRef.update({like: currentLikes, likedBy: tweetLikedBy}).then(()=>{
+          const TweetRef = doc(this.db,'Tweets', Tweet.tweetId);
+        const TweetSnap = getDoc(TweetRef).then(
+    (e)=>{
+        tweet = e.data();
+        currentLikes = tweet.like;
+        tweetLikedBy = tweet.likedBy;
+       
+        if(tweetLikedBy.includes(this.userInfo.username)){
+          currentLikes = currentLikes -1;
+          var i = tweetLikedBy.indexOf(this.userInfo.username);
+          tweetLikedBy.splice(i,1);
+        }else{
+          currentLikes = currentLikes + 1;
+          tweetLikedBy.push(this.userInfo.username);
+        }
+
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+          `Tweets/${Tweet.tweetId}`
         );
         userRef.update({like: currentLikes, likedBy: tweetLikedBy}).then(()=>{
           window.location.reload();
         })
     })
-  }
-  RepostTweet(id: string){
-    let tweetIds = this.userInfo.TweetIds;
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `userInfo/${this.userInfo.username}`
-    );
-  
-    userRef.update({TweetIds: arrayUnion(id)}).then(()=>{
-      this.userInfo.TweetIds.push(id);
-      localStorage.setItem('userInfo',JSON.stringify(this.userInfo));
-      window.location.reload();
+        })
     })
+  }
+  RepostTweet(tweet:Tweet){
+    this.model = {
+      id : this.afs.createId(),
+      postedBy: tweet.postedBy,
+      username: this.userInfo.username,
+      Tweet: tweet.Tweet,
+      pfpURL: tweet.pfpURL,
+      name: tweet.name,
+      like: tweet.like,
+      retweet: tweet.like,
+      commentsNumber: tweet.commentsNumber,
+      comments:tweet.comments,
+      time: tweet.time,
+      timeStamp: tweet.timeStamp,
+      likedBy: tweet.likedBy,
+      Reposted: true,
+      tweetId: tweet.id
+    }
+    this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
+    this.userInfo.TweetIds.push(this.model.id);
+    localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+    this.tweetRef.set(JSON.parse(JSON.stringify(this.model)),{
+      merge: true,
+    }).then(()=>{
+     window.location.reload();
+      })
+    
+    
+      
+  
   }
   unRepostTweet(id: string){
     let tweetIds = this.userInfo.TweetIds;

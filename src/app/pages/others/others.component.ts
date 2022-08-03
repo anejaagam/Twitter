@@ -49,7 +49,7 @@ export class OthersComponent implements OnInit {
     public userInter: UserInteractionService) { 
       console.log(this.userInfo2.followed)
       
-      this.userTweets = Tweet.UserTweets(this.userInfo2.username);
+      this.userTweets = Tweet.UserTweets(this.userInfo2.username, this.userInfo2.TweetIds);
       
       
       

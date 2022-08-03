@@ -46,7 +46,7 @@ export class UserComponent implements OnInit {
     public Tweet : TweetService) { 
       console.log(this.userInfo.followed)
       
-      this.userTweets = Tweet.UserTweets(this.userInfo.username);
+      this.userTweets = Tweet.UserTweets(this.userInfo.username, this.userInfo.TweetIds);
       
       
       

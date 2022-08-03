@@ -10,4 +10,5 @@ export interface UserInfo2 {
     bio: string;
     following: string[];
     follows: string[];
+    TweetIds: [];
 }
