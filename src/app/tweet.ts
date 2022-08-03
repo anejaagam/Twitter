@@ -12,4 +12,5 @@ export interface Tweet {
     time?: any;
     timeStamp: any;
     likedBy: any;
+
 }

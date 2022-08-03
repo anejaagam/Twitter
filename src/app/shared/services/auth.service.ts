@@ -119,6 +119,7 @@ export class AuthService {
       email: user.email,
       following: [],
       follows: [],
+      TweetIds: [],
     };
     
     

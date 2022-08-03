@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { Tweet } from 'src/app/tweet';
 import {formatDate} from '@angular/common';
 import { object } from 'rxfire/database';
-import { doc, docData, Firestore, getDoc, waitForPendingWrites } from '@angular/fire/firestore';
+import { arrayRemove, arrayUnion, doc, docData, Firestore, getDoc, getDocs, waitForPendingWrites } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { push } from '@firebase/database';
 import { analyticInstance$ } from '@angular/fire/analytics';
+import { collection, query, where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class TweetService {
   private tweetRef: AngularFirestoreDocument<any>;
   tweet: Observable<Tweet[]>;
   model:Tweet;
-  
+  tweetIds: any = this.userInfo.tweetIds;
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
   public db : Firestore, public st: AngularFireStorage,) { 
     
@@ -43,12 +44,19 @@ async PostTweet(tweet: HTMLInputElement){
     likedBy: ['Twitter']
   }
   this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
+  this.userInfo.TweetIds.push(this.model.id);
   
   this.tweetRef.set(JSON.parse(JSON.stringify(this.model)),{
     merge: true,
   }).then(()=>{
     getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
-      this.tweetRef.update({pfpURL: url}).then(()=>{window.location.reload();});
+      this.tweetRef.update({pfpURL: url }).then(()=>{
+        const userRef = this.afs.doc(`userInfo/${this.userInfo.username}`)
+        userRef.update({TweetIds: arrayUnion(this.model.id)}).then(()=>{
+          
+          localStorage.setItem('userInfo', JSON.stringify(this.userInfo))
+          window.location.reload();})
+      });
     })
   
   
@@ -62,13 +70,36 @@ getIMGDownloadURL(pfp: any): any{
     URL.push(url);
     return URL;
   })
-  console.log(URL)
+  
   
 }
-
-FeedTweets(username: string){
+ /* GetTweetIds(){
+  const following: any[] = [];
+  let tweet: any;
+  const usernameList: any[] = this.userInfo.follows;
+  const tweetRef = collection(this.db, "Tweets");
+  let ids: any = [];
+  
+  const q = query(tweetRef, where("username","in", usernameList));
+  const querySnapshot = getDocs(q).then(snapshot =>{snapshot.forEach((e)=>{
+    tweet = e.data();
+    ids.push(tweet.id);
+  })})
+  for(let id of this.userInfo.TweetIds){
+    if(!(ids.includes(id))){
+     ids.push(id);
+    }
+   }
+  
+  
+ 
+  return ids;
+  
+} */
+ FeedTweets(username: string){
   const userTweets: unknown[] = [];
   let tweetLikedBy = []
+  
   const following: any[] = []
   const usernameList: any = following.concat(this.userInfo.follows,username)
   if(usernameList.length > 1){
@@ -107,7 +138,7 @@ FeedTweets(username: string){
 
 UserTweets(username:string){
   const userTweets: unknown[] = []
-  this.afs.collection("Tweets", (ref) => ref.where("username", "==", username).orderBy("time", 'desc'))
+  this.afs.collection("Tweets", (ref) => ref.where("id", "in", this.userInfo.TweetIds).orderBy("time", 'desc'))
   .snapshotChanges()
   .subscribe((data) => {
     
@@ -175,7 +206,7 @@ LikeDislikeTweet(id: any){
         tweet = e.data();
         currentLikes = tweet.like;
         tweetLikedBy = tweet.likedBy;
-        console.log(tweetLikedBy ,currentLikes);
+       
         if(tweetLikedBy.includes(this.userInfo.username)){
           currentLikes = currentLikes -1;
           var i = tweetLikedBy.indexOf(this.userInfo.username);
@@ -192,17 +223,32 @@ LikeDislikeTweet(id: any){
           window.location.reload();
         })
     })
-
-    
-   
-  
-  
- 
-  
-    
-    
   }
+  RepostTweet(id: string){
+    let tweetIds = this.userInfo.TweetIds;
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `userInfo/${this.userInfo.username}`
+    );
   
+    userRef.update({TweetIds: arrayUnion(id)}).then(()=>{
+      this.userInfo.TweetIds.push(id);
+      localStorage.setItem('userInfo',JSON.stringify(this.userInfo));
+      window.location.reload();
+    })
+  }
+  unRepostTweet(id: string){
+    let tweetIds = this.userInfo.TweetIds;
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `userInfo/${this.userInfo.username}`
+    );
+  
+    userRef.update({TweetIds: arrayRemove(id)}).then(()=>{
+      const i = this.userInfo.TweetIds.indexOf(id); 
+      this.userInfo.TweetIds.splice(i,1);
+      localStorage.setItem('userInfo',JSON.stringify(this.userInfo));
+      window.location.reload();
+    })
+  }
 }
 
 

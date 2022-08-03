@@ -60,7 +60,7 @@
         </div>
             <div class="retweeticons">
                 <button class="btn" style="width: 100%;"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
-                <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;" (click)="TweetService.RepostTweet(tweet.id)"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
                 <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
                 <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
                 <span *ngIf="tweet.username == this.userInfo.username"><button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(tweet.id)"><fa-icon [icon]="faTrash"  aria-hidden="true"></fa-icon></button></span>
