@@ -38,8 +38,8 @@ export class FeedComponent implements OnInit {
     
     this.feedTweets1 = TweetService.followerTweets();
     this.feedTweets2 = TweetService.UserTweets(this.userInfo.username);
-    this.feedTweets = TweetService.FeedTweets(this.userInfo.username);
-    console.log(tweetseveryone)
+    this.feedTweets =  TweetService.FeedTweets(this.userInfo.username);
+    
   }
 
   ngOnInit(): void {
