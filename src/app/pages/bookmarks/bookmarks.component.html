@@ -29,7 +29,30 @@
     <h3 id="header-username">Bookmarks</h3>
     <p id="header-tweetcnt">@{{userInfo.username}}</p>
     
-    
+    <div class="mytweets" *ngFor="let tweet of this.feedTweets;let indexOfelement=index;">
+      <div class="tweet" >
+          <strong><p *ngIf="tweet.username != tweet.postedBy" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon> {{tweet.username}} Reposted</p></strong>
+      <div class="row container">
+          <div class="col-2" style="box-sizing: border-box;">
+      <img style="box-sizing: border-box;"  [src]='tweet.pfpURL' alt="avi" class="avi">
+          </div>
+          <div class="col" >
+              <div style="box-sizing: border-box;">
+          <div class = "usename"><button class="btn" (click)="goToPage(tweet.postedBy)">{{tweet.name}} @{{tweet.postedBy}}</button> - {{tweet.timeStamp}}</div>
+          <div class="tweetcontent">{{tweet.Tweet}}</div>
+          </div>
+      </div>
+          <div class="retweeticons">
+              <button class="btn" style="width: 100%;"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
+              <button class="btn" style="width: 100%;" (click)="TweetService.RepostTweet(tweet)" *ngIf="tweet.username != userInfo.username"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
+              <button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(tweet.id)" *ngIf="(tweet.username == userInfo.username) && (tweet.username != tweet.postedBy)"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
+              <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
+              <button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(tweet.id)"><fa-icon [icon]="faBookmark"  aria-hidden="true"></fa-icon></button>
+              <button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(tweet.id)" *ngIf="tweet.postedBy == this.userInfo.username"><fa-icon [icon]="faTrash"  aria-hidden="true"></fa-icon></button>
+          </div>
+      </div>
+      </div>
+  </div>
 </div>
 
 

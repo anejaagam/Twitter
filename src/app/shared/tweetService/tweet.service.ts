@@ -140,8 +140,8 @@ getIMGDownloadURL(pfp: any): any{
 
 UserTweets(username:string, TweetId?:[]){
   const userTweets: unknown[] = []
-  if(username == this.userInfo.username){
-  this.afs.collection("Tweets", (ref) => ref.where("username", "==", this.userInfo.username).orderBy("time", 'desc'))
+  if(username == username){
+  this.afs.collection("Tweets", (ref) => ref.where("username", "==", username).orderBy("time", 'desc'))
   .snapshotChanges()
   .subscribe((data) => {
     
@@ -305,6 +305,40 @@ LikeDislikeTweet(Tweet: Tweet){
       localStorage.setItem('userInfo',JSON.stringify(this.userInfo));
       window.location.reload();
     })
+  }
+
+  BookmarkTweet(id: string){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `userInfo/${this.userInfo.username}`
+    );
+    if(!this.userInfo.bookmarks.includes(id)){
+      this.userInfo.bookmarks.push(id);
+      localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+      console.log(id);
+      userRef.update({bookmarks: arrayUnion(id)}).then(()=>{window.location.reload()})
+    }else{
+      var i = this.userInfo.bookmarks.indexOf(id);
+      this.userInfo.bookmarks.splice(i,1);
+      localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+      console.log(id);
+      userRef.update({bookmarks: arrayRemove(id)}).then(()=>{window.location.reload()})
+    }
+  }
+  getBookmarks(){
+    const userBookmarks: any = [];
+    this.afs.collection("Tweets", (ref) => ref.where("id", "in", this.userInfo.bookmarks).orderBy("time", 'desc'))
+  .snapshotChanges()
+  .subscribe((data) => {
+    
+    data.forEach((doc) => {
+      const y:any = doc.payload.doc.data();
+      
+      userBookmarks.push(y);
+      
+    });
+  });
+
+  return userBookmarks;
   }
 }
 
