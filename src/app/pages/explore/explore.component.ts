@@ -80,6 +80,7 @@ export class ExploreComponent implements OnInit {
   }
 goToPage(username:string){
   this.userInter.goToPage(username).then(()=>{
+    localStorage.setItem('ExploreUsername', username);
     this.router.navigate(['other']);
   })
 }

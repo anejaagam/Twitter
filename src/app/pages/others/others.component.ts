@@ -47,9 +47,12 @@ export class OthersComponent implements OnInit {
     public router: Router,
     public Tweet : TweetService,
     public userInter: UserInteractionService) { 
-      console.log(this.userInfo2.followed)
-      
+      console.log(this.userInfo2.username)
+      const user = localStorage.getItem('ExploreUsername');
       this.userTweets = Tweet.UserTweets(this.userInfo2.username);
+      if (this.userInfo2.username != user){
+        this.userInfo2 = JSON.parse(localStorage.getItem('userInfo2')|| '{}');
+      }
       
       
       
