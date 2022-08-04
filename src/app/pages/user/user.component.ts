@@ -15,13 +15,15 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AngularFireStorage, AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask, GetDownloadURLPipe } from '@angular/fire/compat/storage'
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { doc, updateDoc } from '@firebase/firestore';
+import { updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Router } from '@angular/router';
 
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
-
+import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
+import { Tweet } from 'src/app/tweet';
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 
                    
 
@@ -36,17 +38,30 @@ export class UserComponent implements OnInit {
   pfp: Observable<string | null>;
   banner: Observable<string | null>;
   userTweets: any;
-  
-
+  follows = this.userInfo.follows;
+  following = this.userInfo.following;
+  FollowingUsers: any;
+  FollowedUsers: any;
+  replies: any;
+  replyTweet:any;
+  pagelink:string = "tweets";
+  userTweetsNReplies:any;
+  userLikes: any;
 
   constructor(public authservice : AuthService,
     public storage :AngularFireStorage,
     public afs : AngularFirestore,
     public router: Router,
-    public Tweet : TweetService) { 
+    public Tweet : TweetService,
+    public userInter: UserInteractionService,
+    public db: Firestore) { 
       console.log(this.userInfo.followed)
       
       this.userTweets = Tweet.UserTweets(this.userInfo.username, this.userInfo.TweetIds);
+      this.userTweetsNReplies = Tweet.UserTweetsNReply(this.userInfo.username, this.userInfo.TweetIds);
+      this.userLikes = Tweet.UserLikedTweets(this.userInfo.username, this.userInfo.TweetIds);
+      this.FollowingUsers = userInter.FindFollowers();
+      this.FollowedUsers = userInter.FindFollows();
       
       
       
@@ -54,12 +69,35 @@ export class UserComponent implements OnInit {
   }
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;
+  getReplies(ReplyId: string){
+    
+    this.replies = this.Tweet.getReplies(ReplyId);
 
-
-  SendTweetClick(newTweet: HTMLInputElement,){
+    let tweet:any;
+  let tweetLikedBy = []
+  const userRef = doc(this.db,'Tweets', ReplyId);
+  const userSnap = getDoc(userRef).then((e)=>{
+    tweet = e.data();
+    const Tweet: Tweet = {
+      id: tweet.id,
+      username: tweet.username,
+      postedBy: tweet.postedBy,
+      Tweet: tweet.Tweet,
+      pfpURL: tweet.pfpURL,
+      name: tweet.name,
+      like: tweet.like,
+      retweet: tweet.retweet,
+      commentsNumber: tweet.commentsNumber,
+      comments: tweet.comments,
+      timeStamp: tweet.timeStamp,
+      likedBy: tweet.likedBy
+    }
+    this.replyTweet = Tweet;
+  })
     
   }
 
+  
   
   uploadPfp(event:any){
     const id = `${this.userInfo.username}/pfp`;
@@ -87,15 +125,35 @@ export class UserComponent implements OnInit {
         userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo));window.location.reload();});
       })});
     })
-    
-    
-
-
+  }
+  goToPage(username:string){
+    this.userInter.goToPage(username).then(()=>{
+      this.router.navigate(['other']);
+    })
   }
   refresh(){
     window.location.reload();
   }
   ngOnInit(): void {
+  }
+
+  onButtonGroupClick($event: { target: any; srcElement: any; }){
+    let clickedElement = $event.target || $event.srcElement;
+
+    if( clickedElement.nodeName === "BUTTON" ) {
+
+      let isCertainButtonAlreadyActive = clickedElement.parentElement.querySelector(".active-rn");
+      // if a Button already has Class: .active
+      if( isCertainButtonAlreadyActive ) {
+        isCertainButtonAlreadyActive.classList.remove("active-rn");
+      }
+
+      clickedElement.className += " active-rn";
+    }
+
+  }
+  setPage(pageLink:string){
+    this.pagelink = pageLink;
   }
   
   faBell = faBell;

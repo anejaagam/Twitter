@@ -80,7 +80,8 @@ GetUserProfileInfo(userName:string, password:string) {
           following: userData.following,
           follows:userData.follows,
           TweetIds: userData.TweetIds,
-          bookmarks:userData.bookmarks
+          bookmarks:userData.bookmarks,
+          replies: userData.replies
     
         };
         

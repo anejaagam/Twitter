@@ -11,4 +11,5 @@ export interface UserInfo2 {
     following: string[];
     follows: string[];
     TweetIds: [];
+    replies: any;
 }

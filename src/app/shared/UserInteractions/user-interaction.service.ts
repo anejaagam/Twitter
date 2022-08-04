@@ -32,6 +32,43 @@ FindUser(username : string){
   
   return users;
   }
+  FindFollowers(){
+    const FollowingUsers: unknown[] = [];
+    if(this.userInfo.following.length > 0){
+    this.afs.collection("userInfo", (ref) => ref.where("username", "in", this.userInfo.following))
+    .snapshotChanges()
+    .subscribe((data) => {
+      
+      data.forEach((doc) => {
+        const y:any = doc.payload.doc.data();
+        
+        FollowingUsers.push(y);
+        
+      });
+      
+    });
+    
+    return FollowingUsers;}else{return FollowingUsers;}
+  
+  }
+  FindFollows(){
+    const FollowedUsers: unknown[] = [];
+   if(this.userInfo.follows.length > 0){this.afs.collection("userInfo", (ref) => ref.where("username", "in", this.userInfo.follows))
+   .snapshotChanges()
+   .subscribe((data) => {
+     
+     data.forEach((doc) => {
+       const y:any = doc.payload.doc.data();
+       
+       FollowedUsers.push(y);
+       
+     });
+     
+   });
+   
+   return FollowedUsers;} else{return FollowedUsers;}
+  
+  }
 
   async goToPage(username:string){
     let userData :any;
@@ -52,7 +89,8 @@ FindUser(username : string){
           photoURL: userData.photoURL,
           coverPhotoUrl: userData.coverPhotoUrl,
           bio: userData.bio,
-          TweetIds: userData.TweetIds
+          TweetIds: userData.TweetIds,
+          replies: userData.replies,
         };
         localStorage.setItem('userInfo2', JSON.stringify(UserInfo2)); 
         

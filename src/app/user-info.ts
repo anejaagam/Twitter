@@ -15,4 +15,5 @@ export interface UserInfo {
     follows: string[];
     TweetIds : any;
     bookmarks: any;
+    replies: string[];
 }
