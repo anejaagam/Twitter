@@ -341,59 +341,63 @@ GetTweet(id:any){
 
 }
 
- tweetLikedBy: string[] = []
 
 LikeDislikeTweet(Tweet: Tweet){
  let tweet:any;
   
   let currentLikes: number= 0;
+  let tweetLikedBy: string[] = [];
+  let tweetLikedBy2: string[] = [];
+  let currentLikes2: number = 0
   
   const TweetRef = doc(this.db,'Tweets', Tweet.id);
   const TweetSnap = getDoc(TweetRef).then(
     (e)=>{
         tweet = e.data();
         currentLikes = tweet.like;
-        this.tweetLikedBy = tweet.likedBy;
+        tweetLikedBy = tweet.likedBy;
        
-        if(this.tweetLikedBy.includes(this.userInfo.username)){
+        if(tweetLikedBy.includes(this.userInfo.username)){
           currentLikes = currentLikes -1;
-          if(this.tweetLikedBy.indexOf(this.userInfo.username)!= -1){
-            var i = this.tweetLikedBy.indexOf(this.userInfo.username);
-            this.tweetLikedBy.splice(i,1);
+          if(tweetLikedBy.indexOf(this.userInfo.username)!= -1){
+            var i = tweetLikedBy.indexOf(this.userInfo.username);
+            tweetLikedBy.splice(i,1);
           }
         }else{
           currentLikes = currentLikes + 1;
-          this.tweetLikedBy.push(this.userInfo.username);
+          tweetLikedBy.push(this.userInfo.username);
         }
 
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `Tweets/${Tweet.id}`
         );
-        userRef.update({like: currentLikes, likedBy: this.tweetLikedBy}).then(()=>{
+        userRef.update({like: currentLikes, likedBy: tweetLikedBy}).then(()=>{
+         window.location.reload();
+          
           const TweetRef = doc(this.db,'Tweets', Tweet.tweetId);
         const TweetSnap = getDoc(TweetRef).then(
     (e)=>{
         tweet = e.data();
-        currentLikes = tweet.like;
-        const tweetLikedBy2 = tweet.likedBy;
+        currentLikes2 = tweet.like;
+        tweetLikedBy2 = tweet.likedBy;
        
         if(tweetLikedBy2.includes(this.userInfo.username)){
           currentLikes = currentLikes -1;
           if(tweetLikedBy2.indexOf(this.userInfo.username)!= -1){
             var i = tweetLikedBy2.indexOf(this.userInfo.username);
-            this.tweetLikedBy.splice(i,1);
+            tweetLikedBy2.splice(i,1);
           }
           
          
         }else{
-          currentLikes = currentLikes + 1;
+          currentLikes2 = currentLikes2 + 1;
           tweetLikedBy2.push(this.userInfo.username);
         }
 
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `Tweets/${Tweet.tweetId}`
         );
-        userRef.update({like: currentLikes, likedBy: tweetLikedBy2}).then(()=>{
+        userRef.update({like: currentLikes2, likedBy: tweetLikedBy2}).then(()=>{
           window.location.reload();
         })
     })
