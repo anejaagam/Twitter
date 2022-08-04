@@ -79,7 +79,9 @@ GetUserProfileInfo(userName:string, password:string) {
           email: userData.email,
           following: userData.following,
           follows:userData.follows,
-          TweetIds: userData.TweetIds
+          TweetIds: userData.TweetIds,
+          bookmarks:userData.bookmarks,
+          replies: userData.replies
     
         };
         

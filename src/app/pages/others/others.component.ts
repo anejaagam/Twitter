@@ -15,13 +15,15 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AngularFireStorage, AngularFireStorageModule, AngularFireStorageReference, AngularFireUploadTask, GetDownloadURLPipe } from '@angular/fire/compat/storage'
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
-import { doc, updateDoc } from '@firebase/firestore';
+import { updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Router } from '@angular/router';
 
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
+import { Tweet } from 'src/app/tweet';
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 
 
                    
@@ -38,7 +40,11 @@ export class OthersComponent implements OnInit {
   pfp: Observable<string | null>;
   banner: Observable<string | null>;
   userTweets: any;
-  
+  replies: any;
+  replyTweet:any;
+  pagelink:string = "tweets";
+  userTweetsNReplies:any;
+  userLikes: any;
 
 
   constructor(public authservice : AuthService,
@@ -46,11 +52,13 @@ export class OthersComponent implements OnInit {
     public afs : AngularFirestore,
     public router: Router,
     public Tweet : TweetService,
-    public userInter: UserInteractionService) { 
+    public userInter: UserInteractionService,
+    public db: Firestore) { 
       console.log(this.userInfo2.followed)
       
       this.userTweets = Tweet.UserTweets(this.userInfo2.username, this.userInfo2.TweetIds);
-      
+      this.userTweetsNReplies = Tweet.UserTweetsNReply(this.userInfo2.username, this.userInfo2.TweetIds);
+      this.userLikes = Tweet.UserLikedTweets(this.userInfo2.username, this.userInfo2.TweetIds);
       
       
       
@@ -58,9 +66,37 @@ export class OthersComponent implements OnInit {
   AngularRef:AngularFireStorageReference;
   task:AngularFireUploadTask;
 
-
-  SendTweetClick(newTweet: HTMLInputElement,){
+  getReplies(ReplyId: string){
     
+    this.replies = this.Tweet.getReplies(ReplyId);
+
+    let tweet:any;
+  let tweetLikedBy = []
+  const userRef = doc(this.db,'Tweets', ReplyId);
+  const userSnap = getDoc(userRef).then((e)=>{
+    tweet = e.data();
+    const Tweet: Tweet = {
+      id: tweet.id,
+      username: tweet.username,
+      postedBy: tweet.postedBy,
+      Tweet: tweet.Tweet,
+      pfpURL: tweet.pfpURL,
+      name: tweet.name,
+      like: tweet.like,
+      retweet: tweet.retweet,
+      commentsNumber: tweet.commentsNumber,
+      comments: tweet.comments,
+      timeStamp: tweet.timeStamp,
+      likedBy: tweet.likedBy
+    }
+    this.replyTweet = Tweet;
+  })
+    
+  }
+  goToPage(username:string){
+    this.userInter.goToPage(username).then(()=>{
+      this.router.navigate(['other']);
+    })
   }
 
   
@@ -99,6 +135,24 @@ export class OthersComponent implements OnInit {
     window.location.reload();
   }
   ngOnInit(): void {
+  }
+  onButtonGroupClick($event: { target: any; srcElement: any; }){
+    let clickedElement = $event.target || $event.srcElement;
+
+    if( clickedElement.nodeName === "BUTTON" ) {
+
+      let isCertainButtonAlreadyActive = clickedElement.parentElement.querySelector(".active-rn");
+      // if a Button already has Class: .active
+      if( isCertainButtonAlreadyActive ) {
+        isCertainButtonAlreadyActive.classList.remove("active-rn");
+      }
+
+      clickedElement.className += " active-rn";
+    }
+
+  }
+  setPage(pageLink:string){
+    this.pagelink = pageLink;
   }
   
   faBell = faBell;

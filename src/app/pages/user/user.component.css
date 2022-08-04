@@ -203,7 +203,7 @@ figure:hover {
 }
 
 .editprofile {
-  margin-top: 50px;
+ 
   float: right;
   border: 1px solid rgb(0, 0, 0);
   border-radius: 20px;
@@ -211,7 +211,7 @@ figure:hover {
   cursor: pointer;
   font-weight: bold;
   margin-right: 10px;
-margin-top: 250px;
+margin-top: 50px;
 }
 
 .bio {
@@ -388,3 +388,55 @@ text-align: center;
 
 /* RIGHT VERTICAL CONTAINER */
 
+
+.myusers {
+  box-sizing: border-box;
+ display:flex;
+  border: 3px;
+  width: 700px;
+}
+.mytweet {
+  box-sizing: border-box;
+ display:flex;
+  border: 3px;
+
+}
+.users{
+  width: 100%;
+
+}
+.tweet{
+  
+}
+.username{
+  margin-top: 0.5%;
+}
+.follow{
+  margin-top: 15%;
+  
+}
+.follow button{
+  width: 80%;
+}
+.tweetcontent {
+  box-sizing: border-box;
+  margin-top: 5px;
+  object-fit: fill;
+  
+  width: 100%;
+}
+
+
+.retweeticons {
+  
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+
+
+
+
+
+}

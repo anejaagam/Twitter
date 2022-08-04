@@ -120,6 +120,8 @@ export class AuthService {
       following: [],
       follows: [],
       TweetIds: [],
+      bookmarks:[],
+      replies: []
     };
     
     

@@ -17,6 +17,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { Router } from '@angular/router';
+import { Tweet } from 'src/app/tweet';
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-feed',
@@ -30,25 +32,56 @@ export class FeedComponent implements OnInit {
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
   calledBefore: boolean;
-  feedTweets1: any;
+  replies: any;
   feedTweets2: any;
+  replyTweet:any;
 
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService,
     public userInter: UserInteractionService,
-    public router: Router) { 
+    public router: Router,
+    public db: Firestore) { 
     const tweetseveryone: string | any = []
     
-    this.feedTweets1 = TweetService.followerTweets();
+   
     this.feedTweets2 = TweetService.UserTweets(this.userInfo.username);
     this.feedTweets =  TweetService.FeedTweets(this.userInfo.username);
+    
+   
     
   }
   goToPage(username:string){
     this.userInter.goToPage(username).then(()=>{
       this.router.navigate(['other']);
     })
+  }
+  async getReplies(ReplyId: string){
+    
+    this.replies = this.TweetService.getReplies(ReplyId);
+
+    let tweet:any;
+  let tweetLikedBy = []
+  const userRef = doc(this.db,'Tweets', ReplyId);
+  const userSnap = getDoc(userRef).then((e)=>{
+    tweet = e.data();
+    const Tweet: Tweet = {
+      id: tweet.id,
+      username: tweet.username,
+      postedBy: tweet.postedBy,
+      Tweet: tweet.Tweet,
+      pfpURL: tweet.pfpURL,
+      name: tweet.name,
+      like: tweet.like,
+      retweet: tweet.retweet,
+      commentsNumber: tweet.commentsNumber,
+      comments: tweet.comments,
+      timeStamp: tweet.timeStamp,
+      likedBy: tweet.likedBy
+    }
+    this.replyTweet = Tweet;
+  })
+    
   }
   ngOnInit(): void {
   }

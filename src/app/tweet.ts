@@ -16,5 +16,7 @@ export interface Tweet {
     Reposted?: boolean;
     RepoUsername?: string;
     tweetId?: any;
+    ReplyId?: any;
+    Reply?:boolean;
 
 }
