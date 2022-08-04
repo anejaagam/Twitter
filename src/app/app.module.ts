@@ -31,6 +31,17 @@ import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { OthersComponent } from './pages/others/others.component';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { MatMenuModule } from '@angular/material/menu';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +72,20 @@ import { OthersComponent } from './pages/others/others.component';
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
     FontAwesomeModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    
+    
+    
   ],
   providers: [
     ScreenTrackingService,UserTrackingService, AuthService,
