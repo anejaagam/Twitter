@@ -103,7 +103,7 @@ FindUser(username : string){
    
     this.userInfo.follows.push(username)
     userRef.update({follows:this.userInfo.follows, followed: increment(1)}).then(()=>{
-      this.userInfo.followed +=1;
+      this.userInfo.followed = this.userInfo.followed + 1;
       localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
       userRef2.update({following: arrayUnion(this.userInfo.username), followers: increment(1)}).then(()=>{window.location.reload();})
     })
