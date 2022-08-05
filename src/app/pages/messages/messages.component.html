@@ -26,7 +26,7 @@
 
 <div class="col-3 middlecontainer" style="height:100% ;">
 
-   <h3 class="header-username">Messages</h3>
+   <h3 id="header-username">Messages</h3>
     <div class="container">
       <div class="chat-list mat-elevation-z5">
         <div class="search-input">
@@ -41,10 +41,14 @@
           <mat-autocomplete #users="matAutocomplete">
             <mat-option
               *ngFor="let user of users$ | async"
-              [value]="''"
-              (click)="createChat(user)"
+              
+              
             >
+            <div *ngIf="this.userInfo.follows.includes(user.username) && this.userInfo.following.includes(user.username) ">
+              <div (click)="createChat(user)">
               {{ user.name }}
+            </div>
+            </div>
             </mat-option>
           </mat-autocomplete>
         </div>

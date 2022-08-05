@@ -469,19 +469,22 @@ LikeDislikeTweet(Tweet: Tweet){
   }
   getBookmarks(){
     const userBookmarks: any = [];
-    this.afs.collection("Tweets", (ref) => ref.where("id", "in", this.userInfo.bookmarks).orderBy("time", 'desc'))
-  .snapshotChanges()
-  .subscribe((data) => {
-    
-    data.forEach((doc) => {
-      const y:any = doc.payload.doc.data();
+    if(this.userInfo.bookmarks.length > 0) {this.afs.collection("Tweets", (ref) => ref.where("id", "in", this.userInfo.bookmarks).orderBy("time", 'desc'))
+    .snapshotChanges()
+    .subscribe((data) => {
       
-      userBookmarks.push(y);
-      
+      data.forEach((doc) => {
+        const y:any = doc.payload.doc.data();
+        
+        userBookmarks.push(y);
+        
+      });
     });
-  });
-
-  return userBookmarks;
+  
+    return userBookmarks;}else{
+      return userBookmarks;
+    }
+    
   }
 }
 

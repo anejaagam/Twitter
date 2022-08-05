@@ -180,7 +180,8 @@ figure:hover {
 }
 #header-username {
     font-weight: bold;
-    margin-left: 10px
+    margin-left: 10px;
+    
   }
 
 .headerprofileimage {
@@ -412,11 +413,11 @@ text-align: center;
   box-shadow: none;
   background-color: white;
   padding: 24px;
-  
+ 
 }
 
 .search-input {
- 
+ border: none;
 }
 
 .chat-title {
@@ -436,6 +437,7 @@ text-align: center;
 .messages-header {
   display: flex;
   margin-bottom: 8px;
+  margin-top: 0;
 }
 
 .messages-header > img {
