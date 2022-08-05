@@ -9,6 +9,8 @@ import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserInfo } from 'src/app/user-info';
 import { getDoc, Firestore, doc } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit {
     public afs: AngularFirestore,
     public authService: AuthService,
     public db: Firestore,
-    public st: AngularFireStorage ){
+    public st: AngularFireStorage,
+    public auth:AuthenticationService ){
       
    }
    
@@ -40,6 +43,8 @@ export class HomeComponent implements OnInit {
     let bday = regBday.value;
     let loginData = {Useremail,Userpassword};
     this.authService.SignUp(Useremail,Userpassword, username , bday, name);
+  
+    
     //this.SetUserProfileInfo(username,bday,name);
 ``  }
     
@@ -66,6 +71,7 @@ GetUserProfileInfo(userName:string, password:string) {
         userData = e.data();
 
         const userInfo: UserInfo = {
+          uid: userData.uid,
           name: userData.name,
           username: userData.username,
           verified: userData.verified,
@@ -84,8 +90,8 @@ GetUserProfileInfo(userName:string, password:string) {
           replies: userData.replies
     
         };
-        
-        this.authService.SignIn(userData.email,password,userName);
+        this.auth.login(userData.email,password).subscribe(()=>{this.authService.SignIn(userData.email,password,userName)});
+        ;
         localStorage.setItem('userInfo', JSON.stringify(userInfo)); 
     }
   );

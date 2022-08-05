@@ -18,12 +18,12 @@ import { Observable } from 'rxjs';
 import { updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
-import { Router } from '@angular/router';
+import { ResolveEnd, Router } from '@angular/router';
 
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { Tweet } from 'src/app/tweet';
-import { doc, Firestore, getDoc } from '@angular/fire/firestore';
+import { doc, Firestore, getDoc, waitForPendingWrites } from '@angular/fire/firestore';
 
                    
 
@@ -117,14 +117,17 @@ export class UserComponent implements OnInit {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `userInfo/${this.userInfo.username}`
     );
-   
-    getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
+    const userRef2: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${this.userInfo.uid}`
+    );
+    userRef2.update({photoURL: this.userInfo.photoURL}).then(()=>{ getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
       this.userInfo.photoURL = url;
       userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: url, coverPhotoUrl: this.userInfo.coverPhotoUrl}).then(()=>{getDownloadURL(ref(getStorage(),this.userInfo.coverPhotoUrl)).then((url)=>{
         this.userInfo.coverPhotoUrl = url;
         userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo));window.location.reload();});
       })});
-    })
+    })})
+   
   }
   goToPage(username:string){
     this.userInter.goToPage(username).then(()=>{

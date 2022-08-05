@@ -106,6 +106,7 @@ export class AuthService {
     );
    
     const userInfo: UserInfo = {
+      uid: user.uid,
       name:name,
       username: userName,
       verified: false,
@@ -129,8 +130,10 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       username: userName,
-      photoURL: user.photoURL,
+      photoURL: 'default/Default_pfp.jpeg',
       emailVerified: user.emailVerified,
+      name: userInfo.name
+      
     };
     userRef.set(userData, {
       merge: true,
@@ -141,7 +144,7 @@ export class AuthService {
         userInfo.photoURL = url;
         userRef2.update({photoURL: url}).then(()=>{getDownloadURL(ref(getStorage(),userInfo.coverPhotoUrl)).then((url)=>{
           userInfo.coverPhotoUrl = url;
-          userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(userInfo));});
+          userRef2.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(userInfo));});
         })});
       })})
     })

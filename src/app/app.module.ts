@@ -30,6 +30,22 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { BookmarksComponent } from './pages/bookmarks/bookmarks.component';
 import { MessagesComponent } from './pages/messages/messages.component';
 import { OthersComponent } from './pages/others/others.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { MatListModule } from '@angular/material/list';
+import {} from '@angular/material/form-field';
+import {} from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DatePipe } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
+import { DateDisplayPipe } from './shared/pipes/date-display.pipe';
 
 @NgModule({
   declarations: [
@@ -44,6 +60,7 @@ import { OthersComponent } from './pages/others/others.component';
     BookmarksComponent,
     MessagesComponent,
     OthersComponent,
+    DateDisplayPipe,
     
   ],
   imports: [
@@ -61,11 +78,27 @@ import { OthersComponent } from './pages/others/others.component';
     provideRemoteConfig(() => getRemoteConfig()),
     provideStorage(() => getStorage()),
     FontAwesomeModule,
+    HotToastModule.forRoot(),
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    FormsModule,
+    MatMenuModule,
+    MatListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatDividerModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService, AuthService,
     {provide: FIREBASE_OPTIONS, useValue: environment.firebase},
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
