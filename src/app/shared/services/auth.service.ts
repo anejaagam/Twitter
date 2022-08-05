@@ -141,7 +141,7 @@ export class AuthService {
         userInfo.photoURL = url;
         userRef2.update({photoURL: url}).then(()=>{getDownloadURL(ref(getStorage(),userInfo.coverPhotoUrl)).then((url)=>{
           userInfo.coverPhotoUrl = url;
-          userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(userInfo));});
+          userRef2.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(userInfo));});
         })});
       })})
     })

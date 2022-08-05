@@ -91,6 +91,7 @@
         <div *ngIf="pagelink == 'tweetsNreplies'"><div class="mytweets" *ngFor="let tweet of this.userTweetsNReplies;let indexOfelement=index;">
           <div class="tweet" >
             <strong><p *ngIf="tweet.postedBy != userInfo2.username" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon> {{userInfo2.username}} Reposted</p></strong>
+            <strong><p *ngIf="tweet.Reply" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faComment" aria-hidden="true"></fa-icon> {{tweet.username}} Commented</p></strong>
           <div class="row container">
               <div class="col-2" style="box-sizing: border-box;">
           <img style="box-sizing: border-box;" [src]="this.userInfo.photoURL" alt="avi" class="avi">
@@ -114,6 +115,7 @@
         <div *ngIf="pagelink == 'likes'"><div class="mytweets" *ngFor="let tweet of this.userLikes;let indexOfelement=index;">
           <div class="tweet" >
             <strong><p *ngIf="tweet.postedBy != userInfo2.username" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon> {{userInfo2.username}} Reposted</p></strong>
+            <strong><p *ngIf="tweet.Reply" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faComment" aria-hidden="true"></fa-icon> {{tweet.username}} Replied</p></strong>
           <div class="row container">
               <div class="col-2" style="box-sizing: border-box;">
           <img style="box-sizing: border-box;" [src]="this.userInfo.photoURL" alt="avi" class="avi">
@@ -134,29 +136,7 @@
           </div>
       </div>        
       </div></div>
-        <div class="mytweets" *ngFor="let tweet of this.userTweets;let indexOfelement=index;">
-            <div class="tweet" >
-              <strong><p *ngIf="tweet.postedBy != userInfo2.username" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon> {{userInfo2.username}} Reposted</p></strong>
-            <div class="row container">
-                <div class="col-2" style="box-sizing: border-box;">
-            <img style="box-sizing: border-box;" [src]="tweet.pfpURL" alt="avi" class="avi">
-                </div>
-                <div class="col" >
-                    <div style="box-sizing: border-box;">
-                <div class = "usename">{{tweet.name}} @{{tweet.postedBy}} - {{tweet.timeStamp}}</div>
-                <div class="tweetcontent">{{tweet.Tweet}}</div>
-                </div>
-            </div>
-                <div class="retweeticons">
-                    <button class="btn" style="width: 100%;" *ngIf="!tweet.Reply"  data-toggle="modal" data-target="#modalTweet" (click)="getReplies(tweet.id)"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
-                    <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" (click)="Tweet.RepostTweet(tweet)" aria-hidden="true"></fa-icon></button>
-                    <button class="btn" style="width: 100%;"(click)="Tweet.LikeDislikeTweet(tweet)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
-                    <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
-                   
-                </div>
-            </div>
-        </div>        
-        </div>
+      
     
     </div>
 
