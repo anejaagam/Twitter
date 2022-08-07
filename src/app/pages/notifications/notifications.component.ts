@@ -12,6 +12,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { NotifyService } from 'src/app/shared/services/notify.service';
 import { DateDisplayPipe } from 'src/app/shared/pipes/date-display.pipe';
+import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,6 +27,8 @@ export class NotificationsComponent implements OnInit {
   pfp: Observable<string | null>;
   userProfileURL = this.userInfo.userProfileURL;
   feedTweets: any;
+  userInter: UserInteractionService;
+  router: Router;
 
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
@@ -33,7 +37,12 @@ export class NotificationsComponent implements OnInit {
    
     this.feedTweets = NotifService.getUserNotif();
   }
-
+  goToPage(username:string){
+    console.log(username)
+    this.userInter.goToPage(username).then(()=>{
+      this.router.navigate(['other']);
+    })
+  }
   ngOnInit(): void {
   }
   faBell = faBell;

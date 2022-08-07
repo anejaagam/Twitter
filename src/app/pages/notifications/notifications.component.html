@@ -34,7 +34,7 @@
           <div class="col">
             <div style="box-sizing: border-box;">
               <div class="username">
-              <strong>{{notif.fromName}}</strong> <br><span style="font-size:small; color: lightgrey"><em> @{{notif.from}}</em></span><br> {{notif.action}} </div>
+              <button class="btn" (click)="goToPage(notif.from)"><strong>{{notif.fromName}}</strong> <span style="font-size:small; color: lightgrey"><em> @{{notif.from}}</em></span></button><br> {{notif.action}} </div>
             </div>
           </div>
          
