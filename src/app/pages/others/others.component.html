@@ -30,7 +30,7 @@
             <a routerLink="/feed"><i class="fa fa-arrow-left" id="fa-arrow-left"></i></a>
             <div>
                 <h5 id="header-username">{{userInfo2.name}}</h5>
-                    <p id="header-tweetcnt">{{userInfo2.NumberOfTweets}} Tweets</p>
+                <p id="header-tweetcnt">{{userTweetsNReplies.length}} Tweet<span *ngIf="userTweetsNReplies.length > 1">s</span></p>
             </div>
         </section>
         <section class="twitterprofile">

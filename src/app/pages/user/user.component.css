@@ -207,11 +207,12 @@ figure:hover {
   float: right;
   border: 1px solid rgb(0, 0, 0);
   border-radius: 20px;
-  padding: 10px;
+  padding: 5px 10px 5px 10px;
+  
   cursor: pointer;
   font-weight: bold;
   margin-right: 10px;
-margin-top: 50px;
+  margin-top: 50px;
 }
 
 .bio {

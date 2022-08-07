@@ -120,13 +120,14 @@ export class UserComponent implements OnInit {
     const userRef2: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${this.userInfo.uid}`
     );
-    userRef2.update({photoURL: this.userInfo.photoURL}).then(()=>{ getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
+     getDownloadURL(ref(getStorage(),this.userInfo.photoURL)).then((url)=>{
       this.userInfo.photoURL = url;
       userRef.update({bio: this.userInfo.bio, name: this.userInfo.name, photoURL: url, coverPhotoUrl: this.userInfo.coverPhotoUrl}).then(()=>{getDownloadURL(ref(getStorage(),this.userInfo.coverPhotoUrl)).then((url)=>{
         this.userInfo.coverPhotoUrl = url;
-        userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo));window.location.reload();});
+        userRef.update({coverPhotoUrl: url}).then(()=>{localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+      userRef2.update({photoURL: this.userInfo.photoURL}).then(()=>{window.location.reload()})});
       })});
-    })})
+    })
    
   }
   goToPage(username:string){

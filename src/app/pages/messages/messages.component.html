@@ -41,14 +41,12 @@
           <mat-autocomplete #users="matAutocomplete">
             <mat-option
               *ngFor="let user of users$ | async"
-              
-              
+              [value]="''"
+              (click)="createChat(user)"
             >
-            <div *ngIf="this.userInfo.follows.includes(user.username) && this.userInfo.following.includes(user.username) ">
-              <div (click)="createChat(user)">
+            
               {{ user.name }}
-            </div>
-            </div>
+            
             </mat-option>
           </mat-autocomplete>
         </div>
