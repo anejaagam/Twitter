@@ -27,7 +27,20 @@
 <div class="col-6 middlecontainer">
 
     <h3 id="header-username">Notifications</h3>
-    
+    <div class="mytweets" *ngFor="let notif of this.feedTweets;let indexOfelement=index;">
+      <div class="tweet">
+        <div class="row container">
+          <div class="col-2" style="box-sizing: border-box;"> <img style="box-sizing: border-box;" [src]='notif.photoURL' alt="avi" class="avi"> </div>
+          <div class="col">
+            <div style="box-sizing: border-box;">
+              <div class="username">
+               {{notif.fromName}} {{notif.from}} {{notif.action}} </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
     
     
 </div>

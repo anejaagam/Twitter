@@ -10,6 +10,7 @@ import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { push } from '@firebase/database';
 import { analyticInstance$ } from '@angular/fire/analytics';
 import { collection, query, where } from 'firebase/firestore';
+import { NotifyService } from '../services/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +23,14 @@ export class TweetService {
   model:Tweet;
   tweetIds: any = this.userInfo.tweetIds;
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
-  public db : Firestore, public st: AngularFireStorage,) { 
+  public db : Firestore, public st: AngularFireStorage,
+  public notif: NotifyService) { 
     
     
   }
 async PostTweet(tweet: HTMLInputElement){
   let tweetString = tweet.value;
-  
+  if(tweetString = ''){alert('Tweet can not empty')}else{
   this.model = {
     id : this.afs.createId(),
     postedBy: this.userInfo.username,
@@ -63,11 +65,12 @@ async PostTweet(tweet: HTMLInputElement){
   
   
     
-  });
+  });}
 }
 ReplyTweet(tweet: HTMLInputElement, RepliedTweet: Tweet){
   let tweetString = tweet.value;
   const replies: string[] = []
+  if(tweetString = ''){alert('Tweet can not empty')}else{
   this.model = {
     id : this.afs.createId(),
     postedBy: this.userInfo.username,
@@ -86,6 +89,7 @@ ReplyTweet(tweet: HTMLInputElement, RepliedTweet: Tweet){
     ReplyId: RepliedTweet.id,
     Reply: true
   }
+  this.notif.sendNotif(RepliedTweet.postedBy, "reply");
   this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
   this.userInfo.replies = replies.concat(this.userInfo.replies, this.model.ReplyId)
   this.tweetRef.set(JSON.parse(JSON.stringify(this.model)),{
@@ -101,6 +105,7 @@ ReplyTweet(tweet: HTMLInputElement, RepliedTweet: Tweet){
       });
     })
   });
+  }
 }
 
 getReplies(ReplyId: string){
@@ -366,14 +371,15 @@ LikeDislikeTweet(Tweet: Tweet){
         }else{
           currentLikes = currentLikes + 1;
           tweetLikedBy.push(this.userInfo.username);
+          this.notif.sendNotif(tweet.postedBy, "like");
         }
 
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
           `Tweets/${Tweet.id}`
         );
         userRef.update({like: currentLikes, likedBy: tweetLikedBy}).then(()=>{
-         window.location.reload();
-          
+         
+         if(Tweet.Reposted){ 
           const TweetRef = doc(this.db,'Tweets', Tweet.tweetId);
         const TweetSnap = getDoc(TweetRef).then(
     (e)=>{
@@ -392,6 +398,7 @@ LikeDislikeTweet(Tweet: Tweet){
         }else{
           currentLikes2 = currentLikes2 + 1;
           tweetLikedBy2.push(this.userInfo.username);
+          this.notif.sendNotif(tweet.username, "like");
         }
 
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(
@@ -401,7 +408,7 @@ LikeDislikeTweet(Tweet: Tweet){
           window.location.reload();
         })
     })
-        })
+      }else{window.location.reload();}  })
        } )
   } 
   
@@ -423,6 +430,7 @@ LikeDislikeTweet(Tweet: Tweet){
       Reposted: true,
       tweetId: tweet.id
     }
+    this.notif.sendNotif(tweet.postedBy, "repost");
     this.tweetRef = this.afs.doc(`Tweets/${this.model.id}`);
     this.userInfo.TweetIds.push(this.model.id);
     localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
@@ -450,21 +458,21 @@ LikeDislikeTweet(Tweet: Tweet){
     })
   }
 
-  BookmarkTweet(id: string){
+  BookmarkTweet(tweet: Tweet){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `userInfo/${this.userInfo.username}`
     );
-    if(!this.userInfo.bookmarks.includes(id)){
-      this.userInfo.bookmarks.push(id);
+    if(!this.userInfo.bookmarks.includes(tweet.id)){
+      this.userInfo.bookmarks.push(tweet.id);
       localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-      console.log(id);
-      userRef.update({bookmarks: arrayUnion(id)}).then(()=>{window.location.reload()})
+      console.log(tweet.id);
+      userRef.update({bookmarks: arrayUnion(tweet.id)}).then(()=>{window.location.reload()})
     }else{
-      var i = this.userInfo.bookmarks.indexOf(id);
+      var i = this.userInfo.bookmarks.indexOf(tweet.id);
       this.userInfo.bookmarks.splice(i,1);
       localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-      console.log(id);
-      userRef.update({bookmarks: arrayRemove(id)}).then(()=>{window.location.reload()})
+      this.notif.sendNotif(tweet.username, "bookmark");
+      userRef.update({bookmarks: arrayRemove(tweet.id)}).then(()=>{window.location.reload()})
     }
   }
   getBookmarks(){

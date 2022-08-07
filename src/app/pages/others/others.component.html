@@ -272,7 +272,7 @@
 								</button>
 								<button class="btn" style="width: 100%;" (click)="Tweet.LikeDislikeTweet(replyTweet)">
 									<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{replyTweet?.like}}</button>
-								<button class="btn" style="width: 100%;" (click)="Tweet.BookmarkTweet(replyTweet?.id)">
+								<button class="btn" style="width: 100%;" (click)="Tweet.BookmarkTweet(replyTweet)">
 									<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
 								</button>
 								<button class="btn" style="width: 100%;" (click)="Tweet.DeleteTweet(replyTweet?.id)" *ngIf="replyTweet?.postedBy == this.userInfo.username">
@@ -313,7 +313,7 @@
 								</button>
 								<button class="btn" style="width: 100%;" (click)="Tweet.LikeDislikeTweet(reply)">
 									<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{replyTweet?.like}}</button>
-								<button class="btn" style="width: 100%;" (click)="Tweet.BookmarkTweet(reply.id)">
+								<button class="btn" style="width: 100%;" (click)="Tweet.BookmarkTweet(reply)">
 									<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
 								</button>
 								<button class="btn" style="width: 100%;" (click)="Tweet.DeleteTweet(reply.id)" *ngIf="reply.postedBy == this.userInfo.username">

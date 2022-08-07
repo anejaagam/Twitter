@@ -267,10 +267,10 @@ margin-top: 250px;
 }
 
 .avi {
-  width: 75%;
+  width: 75px;
   border-radius: 50%;
   margin-left: 20%;
-  height: 100%;
+  height: 75px;
   font-weight: bold;
   object-fit: cover;
 }
@@ -279,23 +279,27 @@ margin-top: 250px;
   box-sizing: border-box;
  display:flex;
  
-  margin-bottom: 80px;
+  margin-top: 3%;
   border: 3px;
 }
 .tweet{
-  border:  1px grey solid;
-  padding-top: 3%;
+  
+  
+  width: 100%;
 
 }
 .tweetcontent {
   box-sizing: border-box;
-  margin-top: 5px;
+  
   
   position: relative;
   width: 95%;
 }
 
-
+.username{
+  box-sizing: border-box;
+  margin-top: 4.5%;
+}
 .retweeticons {
   
   margin-top: 20px;
