@@ -112,7 +112,7 @@ export class AuthService {
       verified: false,
       bday: userBday,
       photoURL: 'default/Default_pfp.jpeg',
-      coverPhotoUrl: 'default/Default_pfp.jpeg',
+      coverPhotoUrl: 'default/coverPhoto.jpeg',
       followers: 0,
       followed: 0,
       NumberOfTweets: 0,

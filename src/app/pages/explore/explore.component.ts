@@ -17,7 +17,9 @@ import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
+import { Tweet } from 'src/app/tweet';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
@@ -30,13 +32,16 @@ export class ExploreComponent implements OnInit {
   feedTweets: any;
   users: any;
   follows = this.userInfo.follows;
+  replies: any;
+  feedTweets2: any;
+  replyTweet:any;
   
   constructor(public authservice : AuthService,
     public storage: AngularFireStorage,
     public TweetService: TweetService,
     public userInter: UserInteractionService,
     public afs: AngularFirestore,
-    public router: Router) { 
+    public router: Router, public db: Firestore) { 
    
     console.log(this.userInfo.follows)
   }
@@ -45,6 +50,33 @@ export class ExploreComponent implements OnInit {
     const demand: string = explore.value;
     this.users = this.userInter.FindUser(demand);
 
+  }
+  async getReplies(ReplyId: string){
+    
+    this.replies = this.TweetService.getReplies(ReplyId);
+
+    let tweet:any;
+  let tweetLikedBy = []
+  const userRef = doc(this.db,'Tweets', ReplyId);
+  const userSnap = getDoc(userRef).then((e)=>{
+    tweet = e.data();
+    const Tweet: Tweet = {
+      id: tweet.id,
+      username: tweet.username,
+      postedBy: tweet.postedBy,
+      Tweet: tweet.Tweet,
+      pfpURL: tweet.pfpURL,
+      name: tweet.name,
+      like: tweet.like,
+      retweet: tweet.retweet,
+      commentsNumber: tweet.commentsNumber,
+      comments: tweet.comments,
+      timeStamp: tweet.timeStamp,
+      likedBy: tweet.likedBy
+    }
+    this.replyTweet = Tweet;
+  })
+    
   }
   userTweet(username:string){
     const userTweets: any[] = []
@@ -96,4 +128,5 @@ goToPage(username:string){
   faHeart = faHeart;
   faUpload = faUpload;
   faRetweet = faRetweet;
+  faTrash = faTrash;
 }

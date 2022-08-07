@@ -73,9 +73,9 @@
             </div>
         </div>
             <div class="retweeticons">
-                <button class="btn" style="width: 100%;"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
-                <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon></button>
-                <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet.id)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
+                <button class="btn" style="width: 100%;" data-toggle="modal" data-target="#modalTweet" (click)="getReplies(tweet.id)"><fa-icon [icon]="faComment"  aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;"><fa-icon [icon]="faRetweet" (click)="TweetService.RepostTweet(tweet)" aria-hidden="true"></fa-icon></button>
+                <button class="btn" style="width: 100%;"(click)="TweetService.LikeDislikeTweet(tweet)"><fa-icon [icon]="faHeart"  aria-hidden="true"></fa-icon> {{tweet.like}}</button>
                 <button class="btn" style="width: 100%;"><fa-icon [icon]="faUpload"  aria-hidden="true"></fa-icon></button>
             </div>
         </div>
@@ -142,5 +142,92 @@
     </div>
   </div>
 
-  <!--User Profile-->
+ 
   
+<!--Comment Modal-->
+<div class="modal fade" tabindex="-1" id="modalTweet">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content rounded-4 shadow">
+			<div class="modal-header p-5 pb-4 border-bottom-0">
+				<!-- <h5 class="modal-title">Modal title</h5> -->
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body p-5 pt-0">
+				<div class="myreply" style="width: 700px;">
+					<div class="tweet">
+						<div class="row container">
+							<div class="col-2" style="box-sizing: border-box;"> <img style="box-sizing: border-box;" [src]='replyTweet?.pfpURL' alt="avi" class="avi"> </div>
+							<div class="col">
+								<div style="box-sizing: border-box;">
+									<div class="usename">
+										<button class="btn" (click)="goToPage(replyTweet?.postedBy)">{{replyTweet?.name}} @{{replyTweet?.postedBy}}</button> - {{replyTweet?.timeStamp}}</div>
+									<div class="tweetcontent">{{replyTweet?.Tweet}}</div>
+								</div>
+							</div>
+							<div class="retweeticons">
+								<button class="btn" style="width: 100%;">
+									<fa-icon [icon]="faComment" aria-hidden="false" data-toggle="modal" data-target="#modalTweet"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.RepostTweet(replyTweet)" *ngIf="replyTweet?.username != userInfo.username">
+									<fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(replyTweet?.id)" *ngIf="(replyTweet?.username == userInfo.username) && (replyTweet?.username != replyTweet?.postedBy)">
+									<fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.LikeDislikeTweet(replyTweet)">
+									<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{replyTweet?.like}}</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(replyTweet)">
+									<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(replyTweet?.id)" *ngIf="replyTweet?.postedBy == this.userInfo.username">
+									<fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 3vh; margin-bottom: 3vh;">
+					<div class="col-2" style="box-sizing: border-box;"> <img class="avi" [src]="this.userInfo.photoURL"> </div>
+					<div class="col-8 ">
+						<form class="top-row">
+							<input class="new-tweet1" #newtweetReply placeholder="Reply" style="width: 100%; border: none; height: 10vh;" maxlength="280"> </form>
+					</div>
+					<div class="col-2">
+						<!-- Tweet Button -->
+						<button class=" btn btn-primary" (click)="TweetService.ReplyTweet(newtweetReply,replyTweet)" style="margin-top:30px; padding:5px;width: 100%; border-radius: 29px;">Tweet</button>
+					</div>
+				</div>
+				<div class="mytweets" style="width: 700px;" *ngFor="let reply of replies;let indexOfelement=index;">
+					<div class="tweet"> <strong><p *ngIf="reply.username != reply.postedBy" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon> {{reply.username}} Reposted</p></strong>
+						<div class="row container">
+							<div class="col-2" style="box-sizing: border-box;"> <img style="box-sizing: border-box;" [src]='reply.pfpURL' alt="avi" class="avi"> </div>
+							<div class="col">
+								<div style="box-sizing: border-box;">
+									<div class="usename">
+										<button class="btn" (click)="goToPage(reply.postedBy)">{{reply.name}} @{{reply.postedBy}}</button> - {{reply.timeStamp}}</div>
+									<div class="tweetcontent">{{reply.Tweet}}</div>
+								</div>
+							</div>
+							<div class="retweeticons">
+								<button class="btn" style="width: 100%;" (click)="TweetService.RepostTweet(reply)" *ngIf="reply.username != userInfo.username">
+									<fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(reply.id)" *ngIf="(replyTweet?.username == userInfo.username) && (reply.username != reply.postedBy)">
+									<fa-icon [icon]="faRetweet" aria-hidden="true"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.LikeDislikeTweet(reply)">
+									<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{replyTweet?.like}}</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(reply)">
+									<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
+								</button>
+								<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(reply.id)" *ngIf="reply.postedBy == this.userInfo.username">
+									<fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

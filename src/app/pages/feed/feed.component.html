@@ -90,7 +90,7 @@
 							</button>
 							<button class="btn" style="width: 100%;" (click)="TweetService.LikeDislikeTweet(tweet)">
 								<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{tweet.like}}</button>
-							<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(tweet.id)">
+							<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(tweet)">
 								<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
 							</button>
 							<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(tweet.id)" *ngIf="tweet.postedBy == this.userInfo.username">
@@ -180,7 +180,7 @@
 								</button>
 								<button class="btn" style="width: 100%;" (click)="TweetService.LikeDislikeTweet(replyTweet)">
 									<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{replyTweet?.like}}</button>
-								<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(replyTweet?.id)">
+								<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(replyTweet)">
 									<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
 								</button>
 								<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(replyTweet?.id)" *ngIf="replyTweet?.postedBy == this.userInfo.username">
@@ -221,7 +221,7 @@
 								</button>
 								<button class="btn" style="width: 100%;" (click)="TweetService.LikeDislikeTweet(reply)">
 									<fa-icon [icon]="faHeart" aria-hidden="true"></fa-icon> {{replyTweet?.like}}</button>
-								<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(reply.id)">
+								<button class="btn" style="width: 100%;" (click)="TweetService.BookmarkTweet(reply)">
 									<fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
 								</button>
 								<button class="btn" style="width: 100%;" (click)="TweetService.DeleteTweet(reply.id)" *ngIf="reply.postedBy == this.userInfo.username">
