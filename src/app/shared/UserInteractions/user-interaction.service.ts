@@ -93,8 +93,10 @@ FindUser(username : string){
           replies: userData.replies,
         };
         localStorage.setItem('userInfo2', JSON.stringify(UserInfo2)); 
+        window.location.reload();
         
       })
+      
   }
 
   followUser(username:string){
