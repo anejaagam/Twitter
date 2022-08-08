@@ -30,7 +30,7 @@ export class TweetService {
   }
 async PostTweet(tweet: HTMLInputElement){
   let tweetString = tweet.value;
-  if(tweetString = ''){alert('Tweet can not empty')}else{
+  if(tweetString.length < 1){alert('Tweet can not empty')}else{
   this.model = {
     id : this.afs.createId(),
     postedBy: this.userInfo.username,
@@ -70,7 +70,7 @@ async PostTweet(tweet: HTMLInputElement){
 ReplyTweet(tweet: HTMLInputElement, RepliedTweet: Tweet){
   let tweetString = tweet.value;
   const replies: string[] = []
-  if(tweetString = ''){alert('Tweet can not empty')}else{
+  if(tweetString.length < 1){alert('Tweet can not empty')}else{
   this.model = {
     id : this.afs.createId(),
     postedBy: this.userInfo.username,
