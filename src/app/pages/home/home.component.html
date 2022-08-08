@@ -44,7 +44,7 @@
         <div class='div-6'>
             <div class='sub-div-6'>
               
-              <button class="button btn btn-outline-dark ">Forgot password? </button>
+              <button class="button btn btn-outline-dark " data-toggle="modal" data-target="#modalForgotPassword">Forgot password? </button>
                 
                           
             </div>
@@ -105,4 +105,28 @@
       </div>
 
       <!--END MODAL-->
-  
+      <div class="modal fade" tabindex="-1" role="dialog" id="modalForgotPassword">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+              <!-- <h5 class="modal-title">Modal title</h5> -->
+              <h2 class="fw-bold mb-0">Forgot Password?</h2>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+      
+            <div class="modal-body p-5 pt-0">
+              <form class="signUp">
+                
+                <div class="form-floating mb-3">
+                  <input type="email" #forgotEmail class="form-control floating-input floating-input2 rounded-3 " id="floatingInput"  required>
+                  <label for="floatingInput">Email address for account</label>
+                </div>
+                
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id = "signUp" (click)="authService.ForgotPassword(forgotEmail.value)">Reset Password</button>
+                
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
