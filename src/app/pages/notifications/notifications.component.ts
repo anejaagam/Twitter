@@ -14,7 +14,7 @@ import { NotifyService } from 'src/app/shared/services/notify.service';
 import { DateDisplayPipe } from 'src/app/shared/pipes/date-display.pipe';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { Router } from '@angular/router';
-
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-notifications',
@@ -52,5 +52,5 @@ export class NotificationsComponent implements OnInit {
   faEnvelope = faEnvelope;
   faBookmark = faBookmark;
   faUser = faUser;
-  
+  faExclamation  = faExclamation;
 }

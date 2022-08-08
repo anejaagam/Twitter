@@ -19,11 +19,12 @@ import { updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 import { Router } from '@angular/router';
-
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { Tweet } from 'src/app/tweet';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
+import { NotifyService } from 'src/app/shared/services/notify.service';
 
 
                    
@@ -53,13 +54,14 @@ export class OthersComponent implements OnInit {
     public router: Router,
     public Tweet : TweetService,
     public userInter: UserInteractionService,
-    public db: Firestore) { 
+    public db: Firestore,
+    public NotifService: NotifyService) { 
       console.log(this.userInfo2.followed)
       
       this.userTweets = Tweet.UserTweets(this.userInfo2.username, this.userInfo2.TweetIds);
       this.userTweetsNReplies = Tweet.UserTweetsNReply(this.userInfo2.username, this.userInfo2.TweetIds);
       this.userLikes = Tweet.UserLikedTweets(this.userInfo2.username, this.userInfo2.TweetIds);
-      
+      const notifications: any[] = NotifService.getUserNotif();
       
       
   }
@@ -168,4 +170,5 @@ export class OthersComponent implements OnInit {
   faRetweet = faRetweet;
   faTrash = faTrash;
   userProfileURL = this.userInfo2.userProfileURL;
+  faExclamation  = faExclamation;
 }

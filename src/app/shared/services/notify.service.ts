@@ -32,6 +32,9 @@ export class NotifyService {
       case "bookmark":
         notifAction = "bookmarked your tweet";
         break;
+      case "follow":
+        notifAction = "followed you";
+        break;
       default:
         break;
     }
@@ -53,7 +56,7 @@ export class NotifyService {
 
   getUserNotif(){
     const userNotifs: any[] = []
-    this.afs.collection("Notifications", (ref) => ref.where("to", "==", this.userInfo.username).orderBy("notifdate", 'desc'))
+    this.afs.collection("Notifications", (ref) => ref.where("to", "==", this.userInfo.username).orderBy("notifdate", 'asc'))
     .snapshotChanges()
     .subscribe((data) => {
       

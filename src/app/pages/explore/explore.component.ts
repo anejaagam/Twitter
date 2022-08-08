@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { Tweet } from 'src/app/tweet';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { NotifyService } from 'src/app/shared/services/notify.service';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
@@ -41,8 +43,8 @@ export class ExploreComponent implements OnInit {
     public TweetService: TweetService,
     public userInter: UserInteractionService,
     public afs: AngularFirestore,
-    public router: Router, public db: Firestore) { 
-   
+    public router: Router, public db: Firestore, public NotifService: NotifyService) { 
+    const notifications: any = NotifService.getUserNotif();
     console.log(this.userInfo.follows)
   }
 
@@ -129,4 +131,5 @@ goToPage(username:string){
   faUpload = faUpload;
   faRetweet = faRetweet;
   faTrash = faTrash;
+  faExclamation  = faExclamation;
 }

@@ -19,7 +19,8 @@ import { UserInteractionService } from 'src/app/shared/UserInteractions/user-int
 import { Router } from '@angular/router';
 import { Tweet } from 'src/app/tweet';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
-
+import { NotifyService } from 'src/app/shared/services/notify.service';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
@@ -41,10 +42,11 @@ export class FeedComponent implements OnInit {
     public TweetService: TweetService,
     public userInter: UserInteractionService,
     public router: Router,
-    public db: Firestore) { 
+    public db: Firestore,
+    public NotifService: NotifyService) { 
     const tweetseveryone: string | any = []
     
-   
+    const notifications: any = NotifService.getUserNotif();
     this.feedTweets2 = TweetService.UserTweets(this.userInfo.username);
     this.feedTweets =  TweetService.FeedTweets(this.userInfo.username);
     
@@ -106,4 +108,5 @@ export class FeedComponent implements OnInit {
   faUpload = faUpload;
   faRetweet = faRetweet;
   faTrash = faTrash;
+  faExclamation  = faExclamation;
 }

@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { arrayRemove, arrayUnion, doc, Firestore, getDoc, increment } from '@angular/fire/firestore';
 import { UserInfo2 } from 'src/app/user-info2';
+import { NotifyService } from '../services/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserInteractionService {
   router: any;
 
   constructor(public afs: AngularFirestore, @Inject(LOCALE_ID) private locale: string,
-  public db : Firestore, public st: AngularFireStorage,) { }
+  public db : Firestore, public st: AngularFireStorage,public notif: NotifyService) { }
   userInfo = JSON.parse(localStorage.getItem('userInfo')|| '{}');
 FindUser(username : string){
     const users: unknown[] = [];
@@ -107,7 +108,10 @@ FindUser(username : string){
     userRef.update({follows:this.userInfo.follows, followed: increment(1)}).then(()=>{
       this.userInfo.followed = this.userInfo.followed + 1;
       localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-      userRef2.update({following: arrayUnion(this.userInfo.username), followers: increment(1)}).then(()=>{window.location.reload();})
+
+      userRef2.update({following: arrayUnion(this.userInfo.username), followers: increment(1)}).then(()=>{
+        this.notif.sendNotif(username,"follow")
+        window.location.reload();})
     })
 
   }

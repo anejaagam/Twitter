@@ -18,6 +18,8 @@ import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { NotifyService } from 'src/app/shared/services/notify.service';
 @Component({
   selector: 'app-bookmarks',
   templateUrl: './bookmarks.component.html',
@@ -34,8 +36,9 @@ export class BookmarksComponent implements OnInit {
     public storage: AngularFireStorage,
     public TweetService: TweetService,
     public userInter: UserInteractionService,
-    public router: Router) { 
-   
+    public router: Router,
+    public NotifService: NotifyService) { 
+    const notifications: any = NotifService.getUserNotif();
     this.feedTweets = TweetService.getBookmarks();
   }
   goToPage(username:string){
@@ -57,5 +60,5 @@ export class BookmarksComponent implements OnInit {
   faUpload = faUpload;
   faRetweet = faRetweet;
   faTrash = faTrash;
-
+  faExclamation  = faExclamation;
 }

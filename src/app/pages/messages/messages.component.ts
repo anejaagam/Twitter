@@ -23,6 +23,8 @@ import { Message } from 'src/app/chat';
 import { UserInfo } from 'src/app/user-info';
 import { ChatsService } from 'src/app/shared/services/chats.service';
 import { UsersService } from 'src/app/shared/services/users.service';
+import { NotifyService } from 'src/app/shared/services/notify.service';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -39,8 +41,9 @@ export class MessagesComponent implements OnInit {
     public storage: AngularFireStorage,
     public TweetService: TweetService,
      private usersService: UsersService,
-    private chatsService: ChatsService) { 
-   
+    private chatsService: ChatsService,
+    public NotifService: NotifyService) { 
+      const notifications: any = NotifService.getUserNotif();
     this.feedTweets = TweetService.UserTweets(this.userInfo.username);
   }
 
@@ -52,7 +55,7 @@ export class MessagesComponent implements OnInit {
   faEnvelope = faEnvelope;
   faBookmark = faBookmark;
   faUser = faUser;
-
+  faExclamation  = faExclamation;
   @ViewChild('endOfChat')
   endOfChat!: ElementRef;
 

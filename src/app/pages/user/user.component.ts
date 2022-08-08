@@ -17,13 +17,14 @@ import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { updateDoc } from '@firebase/firestore';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import { ResolveEnd, Router } from '@angular/router';
 
 import { TweetService } from 'src/app/shared/tweetService/tweet.service';
 import { UserInteractionService } from 'src/app/shared/UserInteractions/user-interaction.service';
 import { Tweet } from 'src/app/tweet';
 import { doc, Firestore, getDoc, waitForPendingWrites } from '@angular/fire/firestore';
+import { NotifyService } from 'src/app/shared/services/notify.service';
 
                    
 
@@ -54,7 +55,8 @@ export class UserComponent implements OnInit {
     public router: Router,
     public Tweet : TweetService,
     public userInter: UserInteractionService,
-    public db: Firestore) { 
+    public db: Firestore,
+    public NotifService: NotifyService) { 
       console.log(this.userInfo.followed)
       
       this.userTweets = Tweet.UserTweets(this.userInfo.username, this.userInfo.TweetIds);
@@ -62,6 +64,7 @@ export class UserComponent implements OnInit {
       this.userLikes = Tweet.UserLikedTweets(this.userInfo.username, this.userInfo.TweetIds);
       this.FollowingUsers = userInter.FindFollowers();
       this.FollowedUsers = userInter.FindFollows();
+      const notifications: any = NotifService.getUserNotif();
       
       
       
@@ -173,4 +176,5 @@ export class UserComponent implements OnInit {
   faRetweet = faRetweet;
   faTrash = faTrash;
   userProfileURL = this.userInfo.userProfileURL;
+  faExclamation  = faExclamation;
 }
