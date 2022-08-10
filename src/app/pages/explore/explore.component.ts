@@ -98,7 +98,7 @@ export class ExploreComponent implements OnInit {
   }
   findTweet(explore: HTMLInputElement){
     
-    this.afs.collection("Tweets", (ref) => ref.where("Tweet", "==", explore.value))
+    this.afs.collection("Tweets", (ref) => ref.orderBy('Tweet').startAt(explore.value).endAt(explore.value + '~'))
     .snapshotChanges()
     .subscribe((data) => {
       this.feedTweets = [];

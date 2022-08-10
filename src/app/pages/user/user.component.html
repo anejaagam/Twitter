@@ -99,7 +99,7 @@
               <strong><p *ngIf="tweet.Reply" style="margin-top:-20px;margin-bottom:10px"><fa-icon [icon]="faComment" aria-hidden="true"></fa-icon> {{tweet.username}} Commented</p></strong>
             <div class="row container">
                 <div class="col-2" style="box-sizing: border-box;">
-            <img style="box-sizing: border-box;" [src]="this.userInfo.photoURL" alt="avi" class="avi">
+            <img style="box-sizing: border-box;" [src]="tweet.pfpURL" alt="avi" class="avi">
                 </div>
                 <div class="col" >
                     <div style="box-sizing: border-box;">

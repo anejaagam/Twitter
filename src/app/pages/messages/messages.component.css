@@ -485,10 +485,11 @@ text-align: center;
 
 .chat-bubble-container.sender > .chat-bubble {
   background: #1DA1F2;
+  color: white;
 }
 
 .chat-bubble {
-  background: lightgrey;
+  background: rgb(162, 162, 162);
   padding-top: 8px;
   padding-bottom: 18px;
   padding-left: 8px;
@@ -496,7 +497,7 @@ text-align: center;
   margin-bottom: 16px;
   border-radius: 8px;
   width: fit-content;
-
+  color: white;
   position: relative;
 }
 
